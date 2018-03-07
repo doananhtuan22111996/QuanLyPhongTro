@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dbdde0"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.example.anhtuan.quanlyphongtro.DangTin">
@@ -44,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/themhinhanh"
-            android:textSize="20sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -59,113 +61,249 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/camera" />
 
+
         </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textview"
-            android:textSize="20sp"
-            android:visibility="invisible" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/thongtincoban"
-            android:textSize="20sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_weight="1"
             android:background="@drawable/shape_nhap"
-            android:orientation="vertical"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             tools:ignore="NestedWeights">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_button_dangtin"
-                android:text="@string/dangtin"
-                android:textAllCaps="false"
-                android:textColor="@color/cardview_light_background" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tieude"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/giaphong"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dientich"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dienthoai"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/diachi"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/lnl_dangtin_dangtin"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/them_icon" />
+                    <EditText
+                        android:id="@+id/tv_tieude"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_nhap"
+                        android:inputType="text"
+                        android:textSize="15sp"
+                        tools:ignore="LabelFor" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dangtin" />
+                    <EditText
+                        android:id="@+id/tv_giaphong"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_nhap"
+                        android:inputType="text"
+                        android:textSize="15sp"
+                        tools:ignore="LabelFor" />
 
-                </LinearLayout>
+                    <EditText
+                        android:id="@+id/tv_dientich"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_nhap"
+                        android:inputType="text"
+                        android:textSize="15sp"
+                        tools:ignore="LabelFor" />
 
-                <LinearLayout
-                    android:id="@+id/lnl_trangchu_dangtin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/tv_dienthoai"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_nhap"
+                        android:inputType="number"
+                        android:textSize="15sp"
+                        tools:ignore="LabelFor" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/home_icon2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/trangchu" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lnl_canhan_dangtin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/user_male" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/canhan" />
+                    <EditText
+                        android:id="@+id/tv_diachi"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_nhap"
+                        android:inputType="text"
+                        android:textSize="15sp"
+                        tools:ignore="LabelFor" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            tools:ignore="NestedWeights">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/motathem"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_mota"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_nhap"
+                android:inputType="text"
+                tools:ignore="LabelFor" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_dangtin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_button_dangtin"
+            android:text="@string/dangtin"
+            android:textAllCaps="false"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/lnl_dangtin_dangtin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/them_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dangtin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnl_trangchu_dangtin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/home_icon2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trangchu" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnl_canhan_dangtin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/user_male" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/canhan" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

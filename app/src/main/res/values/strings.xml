@@ -7,13 +7,16 @@
     <string name="dangnhap">Đăng nhập</string>
     <string name="quenmatkhau">Quên mật khẩu?</string>
     <string name="timtro">Tìm trọ</string>
-    <string name="dangtin">Đăng tin</string>
     <string name="trangchu">Trang chủ</string>
     <string name="canhan">Cá nhân</string>
     <string name="cactindadang">Các tin đã đăng</string>
     <string name="dangtin">Đăng tin</string>
     <string name="themhinhanh">Thêm hình ảnh:</string>
     <string name="thongtincoban">Thông tin cơ bản:</string>
-    <string name="textview">TextView</string>
-    <string name="dangtin">Đăng tin</string>
+    <string name="tieude">Tiêu đề:</string>
+    <string name="motathem">Mô tả thêm:</string>
+    <string name="giaphong">Giá phòng:</string>
+    <string name="dientich">Diện tích:</string>
+    <string name="dienthoai">Điện thoại:</string>
+    <string name="diachi">Địa chỉ:</string>
 </resources>
