@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".TimTro" />
         <activity android:name=".CacTinDaDang" />
-        <activity android:name=".DangTin"></activity>
+        <activity android:name=".DangTin" />
+        <activity android:name=".Detail_PhongTro"></activity>
     </application>
 
 </manifest>
