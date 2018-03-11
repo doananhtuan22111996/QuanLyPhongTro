@@ -9,118 +9,59 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_backgroud"
-        android:gravity="center_vertical"
-        tools:ignore="UselessParent">
+        android:layout_height="56dp"
+        android:background="@color/color_backgroud">
 
         <ImageView
-            android:id="@+id/img_back_detail_phongtro"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:background="#ef5700"
+            android:id="@+id/img_back_cactindadang"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="10dp"
             android:contentDescription="@null"
-            android:scaleType="fitXY"
             android:src="@drawable/ic_keyboard_backspace_white_24dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="30sp" />
     </FrameLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_fragment_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:ignore="UselessLeaf">
+        android:padding="10dp">
 
-        <RelativeLayout
-            android:id="@+id/rl_fragment_image"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:ignore="NestedWeights">
-
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/chothuenhanguyencan"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/chothuenhanguyencan"
-                android:textAlignment="center"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@null"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/money" />
-
-                    <TextView
-                        android:id="@+id/tv_giaphong_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:contentDescription="@null"
-                        android:scaleType="fitXY"
-                        android:scaleX="1.2"
-                        android:scaleY="1.2"
-                        android:src="@drawable/dientich" />
-
-                    <TextView
-                        android:id="@+id/tv_dientich_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -129,10 +70,10 @@
                     android:layout_height="30dp"
                     android:contentDescription="@null"
                     android:scaleType="fitXY"
-                    android:src="@drawable/address" />
+                    android:src="@drawable/money" />
 
                 <TextView
-                    android:id="@+id/tv_diachi_detail"
+                    android:id="@+id/tv_giaphong_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -141,9 +82,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -152,10 +93,12 @@
                     android:layout_height="30dp"
                     android:contentDescription="@null"
                     android:scaleType="fitXY"
-                    android:src="@drawable/download" />
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:src="@drawable/dientich" />
 
                 <TextView
-                    android:id="@+id/tv_dienthoai_detail"
+                    android:id="@+id/tv_dientich_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -163,88 +106,154 @@
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/address" />
+
             <TextView
-                android:id="@+id/tv_mota_detail"
+                android:id="@+id/tv_diachi_detail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/download" />
+
+            <TextView
+                android:id="@+id/tv_dienthoai_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_mota_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:textSize="15sp" />
+
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/lnl_dangtin_detail_phongtro"
+            android:id="@+id/lnl_dangtin_cactindadang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
                 android:src="@drawable/them_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dangtin" />
+                android:text="@string/dangtin"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
         <LinearLayout
-            android:id="@+id/lnl_trangchu_detail_phongtro"
+            android:id="@+id/lnl_trangchu_cactindadang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
                 android:src="@drawable/home_icon2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/trangchu" />
+                android:text="@string/trangchu"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
         <LinearLayout
-            android:id="@+id/lnl_canhan_detail_phongtro"
+            android:id="@+id/lnl_canhan_cactindadang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
                 android:src="@drawable/user_male" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/canhan" />
+                android:text="@string/canhan"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
