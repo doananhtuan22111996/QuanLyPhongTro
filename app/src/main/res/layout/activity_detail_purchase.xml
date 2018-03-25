@@ -5,33 +5,47 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context="com.example.anhtuan.quanlyphongtro.Detail_PhongTro">
+    tools:context="com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/color_backgroud">
+        android:background="@color/color_backgroud"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_back_cactindadang"
-            android:layout_width="30dp"
+            android:id="@+id/img_back_detailpurchase"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_gravity="center|start"
             android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:contentDescription="@null"
             android:src="@drawable/ic_keyboard_backspace_white_24dp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tv_title_detailpurchase"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="5"
             android:gravity="center"
+            android:hint="@string/title_purchase"
             android:textColor="@color/cardview_light_background"
             android:textSize="30sp" />
-    </FrameLayout>
+
+        <ImageView
+            android:id="@+id/img_edit_detailpurchase"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_edit_white_24dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_fragment_image"
+        android:id="@+id/vp_image_fragdetailpurchase"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
@@ -73,7 +87,7 @@
                     android:src="@drawable/money" />
 
                 <TextView
-                    android:id="@+id/tv_giaphong_detail"
+                    android:id="@+id/tv_price_detailpurchase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -98,7 +112,7 @@
                     android:src="@drawable/dientich" />
 
                 <TextView
-                    android:id="@+id/tv_dientich_detail"
+                    android:id="@+id/tv_acreage_detailpurchase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -123,7 +137,7 @@
                 android:src="@drawable/address" />
 
             <TextView
-                android:id="@+id/tv_diachi_detail"
+                android:id="@+id/tv_address_detailpurchase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -146,7 +160,7 @@
                 android:src="@drawable/download" />
 
             <TextView
-                android:id="@+id/tv_dienthoai_detail"
+                android:id="@+id/tv_phone_detailpuchase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -155,7 +169,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_mota_detail"
+            android:id="@+id/tv_decription_detailpurchase"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
@@ -176,13 +190,14 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/lnl_dangtin_cactindadang"
+            android:id="@+id/lnl_post_detailpurchase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="25dp"
@@ -205,13 +220,14 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:id="@+id/lnl_trangchu_cactindadang"
+            android:id="@+id/lnl_home_detailpurchase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="25dp"
@@ -234,13 +250,14 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:id="@+id/lnl_canhan_cactindadang"
+            android:id="@+id/lnl_user_detailpurchase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="25dp"

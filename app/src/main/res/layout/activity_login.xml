@@ -6,7 +6,7 @@
     android:background="@color/color_backgroud"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.anhtuan.quanlyphongtro.DangNhap">
+    tools:context="com.example.anhtuan.quanlyphongtro.login.LogInActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -44,7 +44,9 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:hint="@string/email"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="anhtuancocuc@gmail.com" />
 
         </LinearLayout>
 
@@ -72,6 +74,8 @@
                 android:hint="@string/matkhau"
                 android:inputType="textPassword"
                 android:maxLines="1"
+                android:singleLine="true"
+                android:text="123456"
                 tools:ignore="TextFields" />
 
         </LinearLayout>
@@ -86,16 +90,26 @@
         android:background="@drawable/shape_button_dangnhap"
         android:text="@string/dangnhap"
         android:textAllCaps="false"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="#ffffff"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_quenmatkhau"
+    <Button
+        android:id="@+id/btn_dangki"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/quenmatkhau"
-        android:textAlignment="center"
-        android:textColor="@color/cardview_light_background"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_button_dangnhap"
+        android:text="@string/dangki"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         android:textSize="20sp" />
+
+
+    <ProgressBar
+        android:id="@+id/pb_waitlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@android:color/white"
+        android:visibility="gone" />
 
 </LinearLayout>

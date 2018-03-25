@@ -6,14 +6,16 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/lnl_items"
+        android:id="@+id/lnl_items_purchase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#f2deb8"
         android:orientation="horizontal"
         android:padding="10dp"
         tools:ignore="UselessParent">
 
         <ImageView
+            android:id="@+id/img_item_purchase"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:contentDescription="@null"
@@ -28,9 +30,10 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_title_purchase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/tilte"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -48,9 +51,10 @@
                     android:src="@drawable/money" />
 
                 <TextView
-                    android:id="@+id/tv_money"
+                    android:id="@+id/tv_price_purchase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/price"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -72,17 +76,21 @@
                     android:src="@drawable/dientich" />
 
                 <TextView
-                    android:id="@+id/tv_dientich"
+                    android:id="@+id/tv_acreage_purchase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/acreage"
                     android:textSize="15sp" />
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_diachi"
+                android:id="@+id/tv_address_purchase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:hint="@string/decriptipn"
+                android:maxLines="1"
                 android:textSize="15sp" />
 
         </LinearLayout>

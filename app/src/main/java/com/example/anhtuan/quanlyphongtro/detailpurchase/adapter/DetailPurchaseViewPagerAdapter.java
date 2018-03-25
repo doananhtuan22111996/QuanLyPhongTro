@@ -1,4 +1,4 @@
-package com.example.anhtuan.quanlyphongtro.adapter;
+package com.example.anhtuan.quanlyphongtro.detailpurchase.adapter;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,14 +14,12 @@ import android.widget.RelativeLayout;
 
 import com.example.anhtuan.quanlyphongtro.R;
 
-import java.util.zip.Inflater;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class  DetailPurchaseViewPagerAdapter extends FragmentPagerAdapter {
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public DetailPurchaseViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -51,7 +49,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.items_image_phongtro_fragment, container, false);
+            View view = inflater.inflate(R.layout.items_image_fragpurchase, container, false);
             ButterKnife.bind(this, view);
             switch (getArguments().getInt("COLOR")) {
                 case 1:

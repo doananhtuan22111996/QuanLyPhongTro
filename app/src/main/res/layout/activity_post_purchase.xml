@@ -6,7 +6,7 @@
     android:background="#dbdde0"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context="com.example.anhtuan.quanlyphongtro.DangTin">
+    tools:context="com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:background="@color/color_backgroud">
 
         <ImageView
-            android:id="@+id/img_back_cactindadang"
+            android:id="@+id/img_back_postpurchase"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center|start"
@@ -138,7 +138,7 @@
                     tools:ignore="UselessParent">
 
                     <EditText
-                        android:id="@+id/tv_tieude"
+                        android:id="@+id/edt_title_postpurchase"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_nhap"
@@ -147,7 +147,7 @@
                         tools:ignore="LabelFor" />
 
                     <EditText
-                        android:id="@+id/tv_giaphong"
+                        android:id="@+id/edt_price_postpurchase"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_nhap"
@@ -156,7 +156,7 @@
                         tools:ignore="LabelFor" />
 
                     <EditText
-                        android:id="@+id/tv_dientich"
+                        android:id="@+id/edt_acreage_postpurchase"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_nhap"
@@ -165,7 +165,7 @@
                         tools:ignore="LabelFor" />
 
                     <EditText
-                        android:id="@+id/tv_dienthoai"
+                        android:id="@+id/edt_phone_postpurchase"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_nhap"
@@ -174,7 +174,7 @@
                         tools:ignore="LabelFor" />
 
                     <EditText
-                        android:id="@+id/tv_diachi"
+                        android:id="@+id/edt_address_postpurchase"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:background="@drawable/shape_nhap"
@@ -205,7 +205,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/edt_mota"
+                android:id="@+id/edt_decription_postpurchase"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
@@ -216,7 +216,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_dangtin"
+            android:id="@+id/btn_postpurchase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -241,7 +241,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/lnl_dangtin_cactindadang"
+            android:id="@+id/lnl_post_postpurchase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -270,7 +270,7 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:id="@+id/lnl_trangchu_cactindadang"
+            android:id="@+id/lnl_home_postpurchase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -299,7 +299,7 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
-            android:id="@+id/lnl_canhan_cactindadang"
+            android:id="@+id/lnl_user_postpurchase"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"

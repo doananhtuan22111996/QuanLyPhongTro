@@ -21,4 +21,12 @@
     <string name="diachi">Địa chỉ:</string>
     <string name="chothuenhanguyencan">Cho thuê nhà nguyên căn</string>
     <string name="phong_tro_online">Phòng Trọ Online</string>
+    <string name="dangki">Đăng kí</string>
+    <string name="nhaplaimatkhau">Nhập lại mật khẩu</string>
+    <string name="dangkiTitle">ĐĂNG KÍ</string>
+    <string name="decriptipn">Decriptipn</string>
+    <string name="tilte">Tilte</string>
+    <string name="price">Price</string>
+    <string name="acreage">Acreage</string>
+    <string name="title_purchase">Title Purchase</string>
 </resources>
