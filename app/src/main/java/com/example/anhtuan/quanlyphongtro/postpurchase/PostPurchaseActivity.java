@@ -31,8 +31,7 @@ public class PostPurchaseActivity extends AppCompatActivity implements View.OnCl
 
     @BindView(R.id.img_back_postpurchase)
     ImageView imgBackPostpurchase;
-    @BindView(R.id.img_camera_dangtin)
-    ImageView imgCameraDangtin;
+
     @BindView(R.id.edt_title_postpurchase)
     EditText edtTitlePostpurchase;
     @BindView(R.id.edt_price_postpurchase)
@@ -51,10 +50,19 @@ public class PostPurchaseActivity extends AppCompatActivity implements View.OnCl
     LinearLayout lnlHomePostpurchase;
     @BindView(R.id.lnl_user_postpurchase)
     LinearLayout lnlUserPostpurchase;
+    @BindView(R.id.btn_save_postpurchase)
+    Button btnSavePostpurchase;
+    @BindView(R.id.img_camera1_postpurchase)
+    ImageView imgCamera1Postpurchase;
+    @BindView(R.id.img_camera2_postpurchase)
+    ImageView imgCamera2Postpurchase;
+    @BindView(R.id.img_camera3_postpurchase)
+    ImageView imgCamera3Postpurchase;
 
     SharedPreferences sharedPreferences;
     PostPurchaseImp postPurchaseImp;
     IApi iApi;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +73,17 @@ public class PostPurchaseActivity extends AppCompatActivity implements View.OnCl
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
+        bundle = getIntent().getExtras();
         postPurchaseImp = new PostPurchaseImp(this);
 
         imgBackPostpurchase.setOnClickListener(this);
         lnlHomePostpurchase.setOnClickListener(this);
         lnlUserPostpurchase.setOnClickListener(this);
+        btnPostpurchase.setOnClickListener(this);
+        btnSavePostpurchase.setOnClickListener(this);
 
         getToken();
+        getFrag();
     }
 
     @Override
@@ -88,6 +100,8 @@ public class PostPurchaseActivity extends AppCompatActivity implements View.OnCl
             Intent intent = new Intent(PostPurchaseActivity.this, PersonalMyPurchaseActivity.class);
             startActivity(intent);
             finish();
+        } else if (v == btnSavePostpurchase) {
+            updatePurchase();
         }
     }
 
@@ -105,7 +119,13 @@ public class PostPurchaseActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void getTokenSuccess() {
-        btnPostpurchase.setOnClickListener(this);
+        if (postPurchaseImp.getFlag() == 0) {
+            btnSavePostpurchase.setVisibility(View.VISIBLE);
+            btnPostpurchase.setVisibility(View.GONE);
+        } else if (postPurchaseImp.getFlag() == 1) {
+            btnSavePostpurchase.setVisibility(View.GONE);
+            btnPostpurchase.setVisibility(View.VISIBLE);
+        }
         Log.d("TOKEN", "SUCCESS");
     }
 
@@ -118,11 +138,23 @@ public class PostPurchaseActivity extends AppCompatActivity implements View.OnCl
         postPurchaseImp.getTokenSharePreference(sharedPreferences);
     }
 
+    private void getFrag() {
+        postPurchaseImp.getFlag(bundle);
+    }
+
     private void postPurchase() {
         PurchaseRequest purchaseRequest = new PurchaseRequest(postPurchaseImp.getApi_token(),
                 edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
                 Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
                 edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString());
         postPurchaseImp.postPurchase(iApi, purchaseRequest);
+    }
+
+    private void updatePurchase() {
+        PurchaseRequest purchaseRequest = new PurchaseRequest(postPurchaseImp.getApi_token(),
+                edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
+                Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
+                edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString());
+        postPurchaseImp.updatePurchase(iApi, purchaseRequest, postPurchaseImp.getId());
     }
 }

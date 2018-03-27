@@ -48,14 +48,14 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     LinearLayout lnlHomeDetailpurchase;
     @BindView(R.id.lnl_user_detailpurchase)
     LinearLayout lnlUserDetailpurchase;
+    @BindView(R.id.img_edit_detailpurchase)
+    ImageView imgEditDetailpurchase;
 
     DetailPurchaseViewPagerAdapter detailPurchaseViewPagerAdapter;
     SharedPreferences sharedPreferences;
     DetailPurchaseImp detailPurchaseImp;
     Bundle bundle;
-    String apiTokenDetail;
-    @BindView(R.id.img_edit_detailpurchase)
-    ImageView imgEditDetailpurchase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +94,13 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     @Override
     public void getTokenSuccess() {
         getPurchase();
-        if (apiTokenDetail.equals(detailPurchaseImp.getApi_token())) {
+        if (detailPurchaseImp.getId() == detailPurchaseImp.getPurchase().getUser().getId()) {
             imgEditDetailpurchase.setVisibility(View.VISIBLE);
         } else {
             imgEditDetailpurchase.setVisibility(View.GONE);
         }
+        Log.d("TOKEN_1", String.valueOf(detailPurchaseImp.getId()));
+        Log.d("TOKEN_2", String.valueOf(detailPurchaseImp.getPurchase().getUser().getId()));
         Log.d("TOKEN", "SUCCESS");
     }
 
@@ -121,18 +123,18 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         } else if (v == lnlUserDetailpurchase) {
             Intent intent = new Intent(DetailPurchaseActivity.this, PersonalMyPurchaseActivity.class);
             startActivity(intent);
-        } else if (v == imgEditDetailpurchase){
+        } else if (v == imgEditDetailpurchase) {
             Intent intent = new Intent(DetailPurchaseActivity.this, PostPurchaseActivity.class);
-            //TODO Changes button Dang ki -> Save
+            intent.putExtra(BaseStringKey.ID, detailPurchaseImp.getPurchase().getId());
+            intent.putExtra(BaseStringKey.FLAG, 0);
             startActivity(intent);
         }
     }
 
     private void getToken() {
         if (sharedPreferences != null) {
-            detailPurchaseImp.getTokenSharePreference(sharedPreferences);
+            detailPurchaseImp.getIdSharePreference(sharedPreferences);
         }
-        apiTokenDetail = bundle.getString(BaseStringKey.USER_TOKEN);
     }
 
     private void getPurchase() {

@@ -18,9 +18,9 @@ import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity;
+import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.personal.PersonalMyPurchaseActivity;
 import com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseActivity;
-import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.purchase.adapter.PurchaseRecyclerViewAdaper;
 
 import butterknife.BindView;
@@ -37,6 +37,8 @@ public class PurchaseActivity extends AppCompatActivity implements IContract.IVi
     LinearLayout lnlPostPurchase;
     @BindView(R.id.lnl_user_purchase)
     LinearLayout lnlUserPurchase;
+    @BindView(R.id.lnl_home_purchase)
+    LinearLayout lnlHomePurchase;
 
     SharedPreferences sharedPreferences;
     PurchasePresenterImp purchasePresenterImp;
@@ -58,6 +60,7 @@ public class PurchaseActivity extends AppCompatActivity implements IContract.IVi
         rcvListPurchase.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
 
         lnlPostPurchase.setOnClickListener(this);
+        lnlHomePurchase.setOnClickListener(this);
 
         getToken();
     }
@@ -66,7 +69,6 @@ public class PurchaseActivity extends AppCompatActivity implements IContract.IVi
     public void onSuccess() {
         pbWaitPurchase.setVisibility(View.GONE);
         showListPurchase();
-        purchaseRecyclerViewAdaper.notifyDataSetChanged();
         Log.d("PURCHASE", "SUCCESS");
     }
 
@@ -104,20 +106,26 @@ public class PurchaseActivity extends AppCompatActivity implements IContract.IVi
             @Override
             public void onClickItemPurchase(int position) {
                 Intent intent = new Intent(PurchaseActivity.this, DetailPurchaseActivity.class);
-                intent.putExtra(BaseStringKey.USER_TOKEN, purchasePresenterImp.getApi_token());
+                intent.putExtra(BaseStringKey.PURCHASE, purchasePresenterImp.getPurchaseList().get(position));
                 startActivity(intent);
             }
         });
+        purchaseRecyclerViewAdaper.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
         if (v == lnlPostPurchase) {
             Intent intent = new Intent(PurchaseActivity.this, PostPurchaseActivity.class);
+            intent.putExtra(BaseStringKey.FLAG, 1);
             startActivity(intent);
         } else if (v == lnlUserPurchase) {
             Intent intent = new Intent(PurchaseActivity.this, PersonalMyPurchaseActivity.class);
             startActivity(intent);
+        } else if (v == lnlHomePurchase) {
+            purchasePresenterImp.getPurchaseList().clear();
+            pbWaitPurchase.setVisibility(View.VISIBLE);
+            getPurchase();
         }
     }
 }

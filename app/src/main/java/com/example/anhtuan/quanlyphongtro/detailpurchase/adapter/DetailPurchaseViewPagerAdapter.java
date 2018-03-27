@@ -35,7 +35,7 @@ public class  DetailPurchaseViewPagerAdapter extends FragmentPagerAdapter {
 
     public static class FragmentImage extends Fragment {
 
-        @BindView(R.id.rl_fragment_image)
+        @BindView(R.id.rl_image_purchase)
         RelativeLayout relativeLayout;
 
         public static FragmentImage newIntance(int color) {

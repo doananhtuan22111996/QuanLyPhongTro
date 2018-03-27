@@ -6,11 +6,13 @@ import android.os.Bundle;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
+import com.example.anhtuan.quanlyphongtro.model.User;
+import com.google.gson.Gson;
 
 public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
 
     private IContract.IViewPurchase iViewPurchase;
-    private String api_token;
+    private int id;
     private Purchase purchase;
 
     public DetailPurchaseImp(IContract.IViewPurchase iViewPurchase) {
@@ -18,8 +20,8 @@ public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
         this.purchase = new Purchase();
     }
 
-    public String getApi_token() {
-        return api_token;
+    public int getId() {
+        return id;
     }
 
     public Purchase getPurchase() {
@@ -27,9 +29,12 @@ public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
     }
 
     @Override
-    public void getTokenSharePreference(SharedPreferences sharedPreferences) {
-        if (!sharedPreferences.getString(BaseStringKey.USER_TOKEN, "").equals("")) {
-            api_token = sharedPreferences.getString(BaseStringKey.USER_TOKEN, "");
+    public void getIdSharePreference(SharedPreferences sharedPreferences) {
+        if (!sharedPreferences.getString(BaseStringKey.INFO_USER, "").equals("")) {
+            String tempUser = sharedPreferences.getString(BaseStringKey.INFO_USER, "");
+            Gson gson = new Gson();
+            User user = gson.fromJson(tempUser, User.class);
+            id = user.getId();
             iViewPurchase.getTokenSuccess();
         } else {
             iViewPurchase.getTokenFailure();

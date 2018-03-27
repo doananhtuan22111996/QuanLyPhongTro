@@ -11,6 +11,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -30,11 +32,11 @@ public interface IApi {
 
     @GET("purchase")
         //Danh sach tro
-    Call<PurchaseResponse> getPurchase(@Body PurchaseRequest purchaseRequest);
+    Call<PurchaseResponse> getPurchase(@Header("Http-Auth-Token") String api_token);
 
     @POST("purchase")
         //Dang tro
-    Call<BaseResponse> postPurchase(@Body PurchaseRequest purchaseRequest);
+    Call<BaseResponse> postPurchase(@Header("Http-Auth-Token") String api_token, @Body PurchaseRequest purchaseRequest);
 
     @DELETE("purchase/{id}")
         //Xoa tro token dang
@@ -42,7 +44,7 @@ public interface IApi {
 
     @PUT("purchase/{id}")
         //Update tro token
-    Call<PurchaseResponse> putPurchase(@Body PurchaseRequest purchaseRequest, @Path("id") int id);
+    Call<BaseResponse> putPurchase(@Body PurchaseRequest purchaseRequest, @Path("id") int id);
 
     @PUT("user/change_password")
         //Change password token

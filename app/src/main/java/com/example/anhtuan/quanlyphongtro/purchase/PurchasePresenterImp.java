@@ -1,6 +1,7 @@
 package com.example.anhtuan.quanlyphongtro.purchase;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
@@ -9,6 +10,7 @@ import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.model.response.PurchaseResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,6 +25,7 @@ public class PurchasePresenterImp implements IContract.IPresenterPurchase {
 
     public PurchasePresenterImp(IContract.IViewPurchase iView) {
         this.iView = iView;
+        purchaseList = new ArrayList<>();
     }
 
     public List<Purchase> getPurchaseList() {
@@ -45,13 +48,13 @@ public class PurchasePresenterImp implements IContract.IPresenterPurchase {
 
     @Override
     public void getPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
-        Call<PurchaseResponse> call = iApi.getPurchase(purchaseRequest);
+        Call<PurchaseResponse> call = iApi.getPurchase(api_token);
         call.enqueue(new Callback<PurchaseResponse>() {
             @Override
             public void onResponse(Call<PurchaseResponse> call, Response<PurchaseResponse> response) {
-                if (response.body() != null) {
-                    Purchase purchase = response.body().getData();
-                    purchaseList.add(purchase);
+                if (response.body().getData() != null) {
+                    purchaseList.addAll(response.body().getData());
+                    Log.d("TAG", String.valueOf(purchaseList.size()));
                     iView.onSuccess();
                 } else {
                     iView.onFailure();

@@ -54,8 +54,7 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
             @Override
             public void onResponse(@NonNull Call<PurchaseResponse> call, @NonNull Response<PurchaseResponse> response) {
                 if (response.body() != null) {
-                    Purchase purchase = response.body().getData();
-                    purchaseList.add(purchase);
+                    purchaseList.addAll(response.body().getData());
                     iViewPurchase.onSuccess();
                 } else {
                     iViewPurchase.onFailure();

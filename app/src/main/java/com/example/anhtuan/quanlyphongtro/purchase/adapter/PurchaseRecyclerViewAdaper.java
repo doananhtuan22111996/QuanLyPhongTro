@@ -20,9 +20,9 @@ import butterknife.ButterKnife;
 
 public class PurchaseRecyclerViewAdaper extends RecyclerView.Adapter<PurchaseRecyclerViewAdaper.PurchaseDataViewHolder> {
 
-    IContract.IOnClickItemPurchaseListener iOnClickItemPurchaseListener;
-    Context context;
-    List<Purchase> purchaseList;
+    private IContract.IOnClickItemPurchaseListener iOnClickItemPurchaseListener;
+    private Context context;
+    private List<Purchase> purchaseList;
 
     public PurchaseRecyclerViewAdaper(Context context, List<Purchase> purchaseList) {
         this.context = context;

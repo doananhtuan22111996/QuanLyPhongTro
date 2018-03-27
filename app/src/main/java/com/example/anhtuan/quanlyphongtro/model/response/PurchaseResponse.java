@@ -6,18 +6,19 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PurchaseResponse extends BaseResponse implements Serializable{
 
     @SerializedName("data")
     @Expose
-    private Purchase data;
+    private List<Purchase> data;
 
-    public Purchase getData() {
+    public List<Purchase> getData() {
         return data;
     }
 
-    public void setData(Purchase data) {
+    public void setData(List<Purchase> data) {
         this.data = data;
     }
 }

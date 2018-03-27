@@ -6,4 +6,6 @@ public class BaseStringKey {
     public static String USER_TOKEN = "API_TOKEN";
     public static String INFO_USER = "INFO_USER";
     public static String PURCHASE = "OBJE``CT_PURCHASE";
+    public static String FLAG = "FLAG";
+    public static String ID = "ID";
 }

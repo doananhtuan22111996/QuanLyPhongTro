@@ -51,6 +51,10 @@ public interface IContract {
         void getTokenSharePreference(SharedPreferences sharedPreferences);
 
         void postPurchase(IApi iApi, PurchaseRequest purchaseRequest);
+
+        void getFlag(Bundle bundle);
+
+        void updatePurchase(IApi iApi, PurchaseRequest purchaseRequest, int id);
     }
 
     interface IPresenterPersonalMyPurchase {
@@ -60,7 +64,7 @@ public interface IContract {
     }
 
     interface IPresenterDetailPurchase {
-        void getTokenSharePreference(SharedPreferences sharedPreferences);
+        void getIdSharePreference(SharedPreferences sharedPreferences);
 
         void getPurchaseBundel(Bundle bundle);
     }
