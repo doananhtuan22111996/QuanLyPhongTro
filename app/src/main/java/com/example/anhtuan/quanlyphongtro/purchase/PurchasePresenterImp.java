@@ -47,14 +47,13 @@ public class PurchasePresenterImp implements IContract.IPresenterPurchase {
     }
 
     @Override
-    public void getPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
+    public void getPurchase(IApi iApi) {
         Call<PurchaseResponse> call = iApi.getPurchase(api_token);
         call.enqueue(new Callback<PurchaseResponse>() {
             @Override
             public void onResponse(Call<PurchaseResponse> call, Response<PurchaseResponse> response) {
                 if (response.body().getData() != null) {
                     purchaseList.addAll(response.body().getData());
-                    Log.d("TAG", String.valueOf(purchaseList.size()));
                     iView.onSuccess();
                 } else {
                     iView.onFailure();

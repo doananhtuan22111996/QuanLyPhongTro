@@ -1,5 +1,6 @@
 package com.example.anhtuan.quanlyphongtro.personal.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -40,11 +41,12 @@ public class MyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<MyPurcha
         return new MyPurchaseDataViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull MyPurchaseDataViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyPurchaseDataViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Purchase purchase = purchaseList.get(position);
         holder.tvTitlePurchase.setText(purchase.getTitle());
-        holder.tvPricePurchase.setText(purchase.getPrice().toString());
+        holder.tvPricePurchase.setText(purchase.getPrice());
         holder.tvAcreagePurchase.setText(purchase.getAcreage().toString());
         holder.tvAddressPurchase.setText(purchase.getAddress());
         //load image
@@ -74,7 +76,7 @@ public class MyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<MyPurcha
         @BindView(R.id.tv_address_purchase)
         TextView tvAddressPurchase;
 
-        public MyPurchaseDataViewHolder(View itemView) {
+        MyPurchaseDataViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

@@ -19,7 +19,6 @@ import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity;
-import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.personal.adapter.MyPurchaseRecyclerViewAdapter;
 import com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseActivity;
 import com.example.anhtuan.quanlyphongtro.purchase.PurchaseActivity;
@@ -44,7 +43,6 @@ public class PersonalMyPurchaseActivity extends AppCompatActivity implements ICo
     ProgressBar pbWaitmypurchase;
 
     SharedPreferences sharedPreferences;
-    MyPurchaseRecyclerViewAdapter myPurchaseRecyclerViewAdapter;
     PersonalMyPurchaseImp personalMyPurchaseImp;
     IApi iApi;
 
@@ -65,6 +63,7 @@ public class PersonalMyPurchaseActivity extends AppCompatActivity implements ICo
         imgBackPersonalmypurchase.setOnClickListener(this);
         lnlHomePersonalmypurchase.setOnClickListener(this);
         lnlPostpurchasePersonalmypurhcase.setOnClickListener(this);
+        lnlUserPersonalmypurchase.setOnClickListener(this);
 
         getToken();
     }
@@ -73,7 +72,6 @@ public class PersonalMyPurchaseActivity extends AppCompatActivity implements ICo
     public void onSuccess() {
         pbWaitmypurchase.setVisibility(View.GONE);
         showMyPurchase();
-        myPurchaseRecyclerViewAdapter.notifyDataSetChanged();
         Log.d("MYPURCHASE", "SUCCESS");
     }
 
@@ -103,7 +101,12 @@ public class PersonalMyPurchaseActivity extends AppCompatActivity implements ICo
             finish();
         } else if (v == lnlPostpurchasePersonalmypurhcase) {
             Intent intent = new Intent(PersonalMyPurchaseActivity.this, PostPurchaseActivity.class);
+            intent.putExtra(BaseStringKey.FLAG, 1);
             startActivity(intent);
+        } else if (v == lnlUserPersonalmypurchase){
+            personalMyPurchaseImp.getPurchaseList().clear();
+            pbWaitmypurchase.setVisibility(View.VISIBLE);
+            personalMyPurchaseImp.getMyPurchase(iApi);
         }
     }
 
@@ -114,8 +117,7 @@ public class PersonalMyPurchaseActivity extends AppCompatActivity implements ICo
     }
 
     private void getMyPurchase() {
-        PurchaseRequest purchaseRequest = new PurchaseRequest(personalMyPurchaseImp.getApi_token());
-        personalMyPurchaseImp.getMyPurchase(iApi, purchaseRequest);
+        personalMyPurchaseImp.getMyPurchase(iApi);
     }
 
     private void showMyPurchase() {
@@ -125,10 +127,11 @@ public class PersonalMyPurchaseActivity extends AppCompatActivity implements ICo
             @Override
             public void onClickItemPurchase(int position) {
                 Intent intent = new Intent(PersonalMyPurchaseActivity.this, DetailPurchaseActivity.class);
-                intent.putExtra(BaseStringKey.USER_TOKEN, personalMyPurchaseImp.getApi_token());
+                intent.putExtra(BaseStringKey.PURCHASE, personalMyPurchaseImp.getPurchaseList().get(position));
                 startActivity(intent);
             }
         });
+        myPurchaseRecyclerViewAdapter.notifyDataSetChanged();
     }
 
 }

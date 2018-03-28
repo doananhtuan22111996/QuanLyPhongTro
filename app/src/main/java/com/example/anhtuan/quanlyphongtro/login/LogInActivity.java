@@ -65,7 +65,6 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
         pbWaitlogin.setVisibility(View.GONE);
         Intent intent = new Intent(LogInActivity.this, PurchaseActivity.class);
         startActivity(intent);
-        finish();
     }
 
     @Override
@@ -79,7 +78,6 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
     public void checkUserSuccess() {
         Intent intent = new Intent(LogInActivity.this, PurchaseActivity.class);
         startActivity(intent);
-        finish();
         Log.d("SIGNIN", "SUCCESS");
     }
 

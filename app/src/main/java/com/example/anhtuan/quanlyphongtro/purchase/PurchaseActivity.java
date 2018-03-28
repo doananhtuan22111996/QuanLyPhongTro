@@ -18,7 +18,6 @@ import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity;
-import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.personal.PersonalMyPurchaseActivity;
 import com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseActivity;
 import com.example.anhtuan.quanlyphongtro.purchase.adapter.PurchaseRecyclerViewAdaper;
@@ -61,6 +60,7 @@ public class PurchaseActivity extends AppCompatActivity implements IContract.IVi
 
         lnlPostPurchase.setOnClickListener(this);
         lnlHomePurchase.setOnClickListener(this);
+        lnlUserPurchase.setOnClickListener(this);
 
         getToken();
     }
@@ -95,8 +95,7 @@ public class PurchaseActivity extends AppCompatActivity implements IContract.IVi
     }
 
     private void getPurchase() {
-        PurchaseRequest purchaseRequest = new PurchaseRequest(purchasePresenterImp.getApi_token());
-        purchasePresenterImp.getPurchase(iApi, purchaseRequest);
+        purchasePresenterImp.getPurchase(iApi);
     }
 
     private void showListPurchase() {

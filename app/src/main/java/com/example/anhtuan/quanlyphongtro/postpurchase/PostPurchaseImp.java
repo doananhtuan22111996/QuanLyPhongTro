@@ -86,16 +86,14 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
 
     @Override
     public void updatePurchase(IApi iApi, PurchaseRequest purchaseRequest, int id) {
-        Call<BaseResponse> call = iApi.putPurchase(purchaseRequest, id);
+        Call<BaseResponse> call = iApi.putPurchase(api_token, purchaseRequest, id);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-                if (response.body().getStatus() != null) {
-                    if (response.body().getStatus().equals("true")) {
-                        iViewPurchase.onSuccess();
-                    } else {
-                        iViewPurchase.onFailure();
-                    }
+                if (response.body() != null) {
+                    iViewPurchase.onSuccess();
+                } else {
+                    iViewPurchase.onFailure();
                 }
             }
 

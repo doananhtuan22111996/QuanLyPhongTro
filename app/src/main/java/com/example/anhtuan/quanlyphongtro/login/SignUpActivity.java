@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
+import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.purchase.PurchaseActivity;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
@@ -52,7 +53,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
-        sharedPreferences = getSharedPreferences("OBJECT_USER", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
         loginPresenterImp = new LoginPresenterImp(this);
 
         imgbBack.setOnClickListener(this);

@@ -44,7 +44,7 @@ public interface IContract {
     interface IPresenterPurchase {
         void getTokenSharePreference(SharedPreferences sharedPreferences);
 
-        void getPurchase(IApi iApi, PurchaseRequest purchaseRequest);
+        void getPurchase(IApi iApi);
     }
 
     interface IPresenterPostPurchase {
@@ -60,7 +60,7 @@ public interface IContract {
     interface IPresenterPersonalMyPurchase {
         void getTokenSharePreference(SharedPreferences sharedPreferences);
 
-        void getMyPurchase(IApi iApi, PurchaseRequest purchaseRequest);
+        void getMyPurchase(IApi iApi);
     }
 
     interface IPresenterDetailPurchase {

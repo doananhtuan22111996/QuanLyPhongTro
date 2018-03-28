@@ -67,7 +67,7 @@ public class LoginPresenterImp implements IContract.IPresenterLogin {
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-                if (response.body() != null) {
+                if (response.body().getData() != null) {
                     user = response.body().getData();
                     writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
                     iView.onSuccess();

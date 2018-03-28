@@ -28,7 +28,7 @@ public interface IApi {
 
     @GET("purchase/my_purchases")
         //Danh sach token da dang
-    Call<PurchaseResponse> getMyPurchase(@Body PurchaseRequest purchaseRequest);
+    Call<PurchaseResponse> getMyPurchase(@Header("Http-Auth-Token") String api_token);
 
     @GET("purchase")
         //Danh sach tro
@@ -38,19 +38,8 @@ public interface IApi {
         //Dang tro
     Call<BaseResponse> postPurchase(@Header("Http-Auth-Token") String api_token, @Body PurchaseRequest purchaseRequest);
 
-    @DELETE("purchase/{id}")
-        //Xoa tro token dang
-    Call<BaseResponse> deletePurchase(@Body String api_token, @Path("id") int id);
-
     @PUT("purchase/{id}")
         //Update tro token
-    Call<BaseResponse> putPurchase(@Body PurchaseRequest purchaseRequest, @Path("id") int id);
+    Call<BaseResponse> putPurchase(@Header("Http-Auth-Token") String api_token, @Body PurchaseRequest purchaseRequest, @Path("id") int id);
 
-    @PUT("user/change_password")
-        //Change password token
-    Call<BaseResponse> putChangePassword(@Body UserRequest userRequest);
-
-    @PUT("user")
-        //Get data user
-    Call<UserResponse> putUser(@Body UserRequest userRequest);
 }

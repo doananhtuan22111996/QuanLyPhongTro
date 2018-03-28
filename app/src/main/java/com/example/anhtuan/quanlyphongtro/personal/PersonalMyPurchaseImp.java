@@ -3,12 +3,12 @@ package com.example.anhtuan.quanlyphongtro.personal;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
-import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.model.response.PurchaseResponse;
 
 import java.util.ArrayList;
@@ -48,13 +48,14 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
     }
 
     @Override
-    public void getMyPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
-        Call<PurchaseResponse> call = iApi.getMyPurchase(purchaseRequest);
+    public void getMyPurchase(IApi iApi) {
+        Call<PurchaseResponse> call = iApi.getMyPurchase(api_token);
         call.enqueue(new Callback<PurchaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<PurchaseResponse> call, @NonNull Response<PurchaseResponse> response) {
-                if (response.body() != null) {
+                if (response.body().getData() != null) {
                     purchaseList.addAll(response.body().getData());
+                    Log.d("TAG", String.valueOf(purchaseList.size()));
                     iViewPurchase.onSuccess();
                 } else {
                     iViewPurchase.onFailure();
