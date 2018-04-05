@@ -9,6 +9,7 @@ import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseResponse;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
+import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 
 import retrofit2.Call;
@@ -19,12 +20,16 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
 
     private IContract.IViewPurchase iViewPurchase;
     private BaseResponse baseResponse;
+    private Purchase purchase;
     private String api_token;
     private int flag, id;
 
     PostPurchaseImp(IContract.IViewPurchase iViewPurchase) {
         this.iViewPurchase = iViewPurchase;
         this.baseResponse = new BaseResponse();
+        this.purchase = new Purchase();
+        this.flag = 0;
+        this.id = 0;
     }
 
     String getApi_token() {
@@ -37,6 +42,10 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
 
     public int getId() {
         return id;
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
     }
 
     @Override
@@ -78,9 +87,15 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
         if (bundle != null) {
             flag = bundle.getInt(BaseStringKey.FLAG);
             id = bundle.getInt(BaseStringKey.ID);
-            iViewPurchase.getTokenSuccess();
+            purchase = (Purchase) bundle.getSerializable(BaseStringKey.PURCHASE);
+            Log.d("FLAG_POST", flag + "/" + id);
+            bundle.remove(BaseStringKey.PURCHASE);
+            bundle.remove(BaseStringKey.ID);
+            bundle.remove(BaseStringKey.FLAG);
+            iViewPurchase.getFlagSuccess();
         } else {
-            iViewPurchase.getTokenFailure();
+            flag = 0;
+            iViewPurchase.getFlagFailure();
         }
     }
 

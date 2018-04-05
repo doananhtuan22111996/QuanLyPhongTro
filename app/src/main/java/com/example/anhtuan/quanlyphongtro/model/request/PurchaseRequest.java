@@ -3,6 +3,8 @@ package com.example.anhtuan.quanlyphongtro.model.request;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public class PurchaseRequest {
@@ -28,9 +30,9 @@ public class PurchaseRequest {
     @SerializedName("description")
     @Expose
     private String description;
-    @SerializedName("images")
+    @SerializedName("images[image]")
     @Expose
-    private List<String> images = null;
+    private List<String> images;
 
     public PurchaseRequest(String api_token, String title, float price, float acreage, String phone, String address, String description, List<String> images) {
         this.api_token = api_token;

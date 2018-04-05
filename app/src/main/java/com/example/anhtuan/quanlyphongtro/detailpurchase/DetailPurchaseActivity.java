@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +16,7 @@ import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.adapter.DetailPurchaseViewPagerAdapter;
-import com.example.anhtuan.quanlyphongtro.personal.PersonalMyPurchaseActivity;
-import com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseActivity;
-import com.example.anhtuan.quanlyphongtro.purchase.PurchaseActivity;
+import com.example.anhtuan.quanlyphongtro.main.MainAcativity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,12 +39,6 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     TextView tvPhoneDetailpuchase;
     @BindView(R.id.tv_decription_detailpurchase)
     TextView tvDecriptionDetailpurchase;
-    @BindView(R.id.lnl_post_detailpurchase)
-    LinearLayout lnlPostDetailpurchase;
-    @BindView(R.id.lnl_home_detailpurchase)
-    LinearLayout lnlHomeDetailpurchase;
-    @BindView(R.id.lnl_user_detailpurchase)
-    LinearLayout lnlUserDetailpurchase;
     @BindView(R.id.img_edit_detailpurchase)
     ImageView imgEditDetailpurchase;
 
@@ -71,9 +62,6 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         vpImageFragdetailpurchase.setAdapter(detailPurchaseViewPagerAdapter);
 
         imgBackDetailpurchase.setOnClickListener(this);
-        lnlHomeDetailpurchase.setOnClickListener(this);
-        lnlPostDetailpurchase.setOnClickListener(this);
-        lnlUserDetailpurchase.setOnClickListener(this);
         imgEditDetailpurchase.setOnClickListener(this);
 
         getToken();
@@ -99,8 +87,6 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         } else {
             imgEditDetailpurchase.setVisibility(View.GONE);
         }
-        Log.d("TOKEN_1", String.valueOf(detailPurchaseImp.getId()));
-        Log.d("TOKEN_2", String.valueOf(detailPurchaseImp.getPurchase().getUser().getId()));
         Log.d("TOKEN", "SUCCESS");
     }
 
@@ -110,23 +96,25 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     }
 
     @Override
+    public void getFlagSuccess() {
+
+    }
+
+    @Override
+    public void getFlagFailure() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         if (v == imgBackDetailpurchase) {
             onBackPressed();
-        } else if (v == lnlHomeDetailpurchase) {
-            Intent intent = new Intent(DetailPurchaseActivity.this, PurchaseActivity.class);
-            startActivity(intent);
-            finish();
-        } else if (v == lnlPostDetailpurchase) {
-            Intent intent = new Intent(DetailPurchaseActivity.this, PostPurchaseActivity.class);
-            startActivity(intent);
-        } else if (v == lnlUserDetailpurchase) {
-            Intent intent = new Intent(DetailPurchaseActivity.this, PersonalMyPurchaseActivity.class);
-            startActivity(intent);
         } else if (v == imgEditDetailpurchase) {
-            Intent intent = new Intent(DetailPurchaseActivity.this, PostPurchaseActivity.class);
+            Intent intent = new Intent(DetailPurchaseActivity.this, MainAcativity.class);
             intent.putExtra(BaseStringKey.ID, detailPurchaseImp.getPurchase().getId());
-            intent.putExtra(BaseStringKey.FLAG, 0);
+            intent.putExtra(BaseStringKey.FLAG, 1);
+            intent.putExtra(BaseStringKey.PURCHASE, detailPurchaseImp.getPurchase());
+            Log.d("FLAG_", String.valueOf(detailPurchaseImp.getPurchase().getId()));
             startActivity(intent);
         }
     }

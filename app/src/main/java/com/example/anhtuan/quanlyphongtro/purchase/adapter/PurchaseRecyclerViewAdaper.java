@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
@@ -48,6 +50,7 @@ public class PurchaseRecyclerViewAdaper extends RecyclerView.Adapter<PurchaseRec
         holder.tvAcreagePurchase.setText(purchase.getAcreage().toString() + "m2");
         holder.tvAddressPurchase.setText(purchase.getAddress().toString());
         //load iamge purchase
+        Glide.with(context).load("https://anh.eva.vn//upload/2-2013/images/2013-04-25/1366856222-nhat-kim-anh-1.jpg").into(holder.imgItemPurchase);
         holder.lnlItemsPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +76,8 @@ public class PurchaseRecyclerViewAdaper extends RecyclerView.Adapter<PurchaseRec
         TextView tvAcreagePurchase;
         @BindView(R.id.tv_address_purchase)
         TextView tvAddressPurchase;
+        @BindView(R.id.img_item_purchase)
+        ImageView imgItemPurchase;
 
         public PurchaseDataViewHolder(View itemView) {
             super(itemView);

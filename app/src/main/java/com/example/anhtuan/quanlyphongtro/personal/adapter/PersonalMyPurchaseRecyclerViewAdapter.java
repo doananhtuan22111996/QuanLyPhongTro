@@ -7,9 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
@@ -19,13 +21,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<MyPurchaseRecyclerViewAdapter.MyPurchaseDataViewHolder> {
+public class PersonalMyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<PersonalMyPurchaseRecyclerViewAdapter.MyPurchaseDataViewHolder> {
 
     private Context context;
     private IContract.IOnClickItemPurchaseListener iOnClickItemPurchaseListener;
     private List<Purchase> purchaseList;
 
-    public MyPurchaseRecyclerViewAdapter(Context context, List<Purchase> purchaseList) {
+    public PersonalMyPurchaseRecyclerViewAdapter(Context context, List<Purchase> purchaseList) {
         this.context = context;
         this.purchaseList = purchaseList;
     }
@@ -49,7 +51,8 @@ public class MyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<MyPurcha
         holder.tvPricePurchase.setText(purchase.getPrice());
         holder.tvAcreagePurchase.setText(purchase.getAcreage().toString());
         holder.tvAddressPurchase.setText(purchase.getAddress());
-        //load image
+        Glide.with(context).load("https://anh.eva.vn//upload/2-2013/images/2013-04-25/1366856222-nhat-kim-anh-1.jpg").into(holder.imgItemPurchase);
+
         holder.lnlItemsPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,8 @@ public class MyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<MyPurcha
         TextView tvAcreagePurchase;
         @BindView(R.id.tv_address_purchase)
         TextView tvAddressPurchase;
+        @BindView(R.id.img_item_purchase)
+        ImageView imgItemPurchase;
 
         MyPurchaseDataViewHolder(View itemView) {
             super(itemView);

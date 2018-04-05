@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
-import com.example.anhtuan.quanlyphongtro.purchase.PurchaseActivity;
+import com.example.anhtuan.quanlyphongtro.main.MainAcativity;
+import com.example.anhtuan.quanlyphongtro.purchase.PurchaseFragment;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
@@ -67,11 +68,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         } else if (v == btnDangki) {
             pbWaitsignup.setVisibility(View.VISIBLE);
             if (edtTaikhoan.getText().length() != 0 || edtPassword.getText().length() != 0 || edtConfirmationPassword.getText().length() != 0) {
-                AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(),
-                        edtPassword.getText().toString(), edtConfirmationPassword.getText().toString());
-                loginPresenterImp.getTokenSignUp(iApi, authRequest, sharedPreferences);
+                if (edtPassword.getText().toString().equals(edtConfirmationPassword.getText().toString())) {
+                    AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(),
+                            edtPassword.getText().toString(), edtConfirmationPassword.getText().toString());
+                    loginPresenterImp.getTokenSignUp(iApi, authRequest, sharedPreferences);
+                } else {
+                    pbWaitsignup.setVisibility(View.GONE);
+                    Toast.makeText(this, "Password and ConfimPassword failure", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                onFailure();
+                pbWaitsignup.setVisibility(View.GONE);
+                Toast.makeText(this, "Input Info", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -79,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onSuccess() {
         pbWaitsignup.setVisibility(View.GONE);
-        Intent intent = new Intent(SignUpActivity.this, PurchaseActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, MainAcativity.class);
         startActivity(intent);
         finish();
         Log.d("SIGNUP", "SUCCESS");
@@ -88,7 +95,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onFailure() {
         pbWaitsignup.setVisibility(View.GONE);
-        Toast.makeText(this, "SIGN UP FAILURE", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Email has already been taken", Toast.LENGTH_SHORT).show();
         Log.d("SIGNUP", "FAILURE");
     }
 

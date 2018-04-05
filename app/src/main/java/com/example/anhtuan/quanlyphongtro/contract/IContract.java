@@ -31,6 +31,20 @@ public interface IContract {
         void getTokenSuccess();
 
         void getTokenFailure();
+
+        void getFlagSuccess();
+
+        void getFlagFailure();
+    }
+
+    interface IViewMain {
+        void getFlagSuccess();
+
+        void getFlagFailure();
+    }
+
+    interface IPresenterMain {
+        void getFlag(Bundle bundle);
     }
 
     interface IPresenterLogin {

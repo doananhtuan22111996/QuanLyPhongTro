@@ -13,6 +13,8 @@ import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 import com.example.anhtuan.quanlyphongtro.model.response.UserResponse;
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,8 +47,7 @@ public class LoginPresenterImp implements IContract.IPresenterLogin {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
                 if (response.body() != null) {
-                    user = response.body().getData();
-                    Log.d("MESSAGE", response.body().getMessage());
+                    user = Objects.requireNonNull(response.body()).getData();
                     writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
                     iView.onSuccess();
                 } else {
@@ -67,8 +68,8 @@ public class LoginPresenterImp implements IContract.IPresenterLogin {
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-                if (response.body().getData() != null) {
-                    user = response.body().getData();
+                if (response.body() != null) {
+                    user = Objects.requireNonNull(response.body()).getData();
                     writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
                     iView.onSuccess();
                 } else {

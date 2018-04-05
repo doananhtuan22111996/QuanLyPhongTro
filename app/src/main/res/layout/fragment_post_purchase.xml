@@ -6,30 +6,16 @@
     android:background="#dbdde0"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    tools:context="com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseActivity">
+    tools:context="com.example.anhtuan.quanlyphongtro.postpurchase.PostPurchaseFragment">
 
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/color_backgroud">
-
-        <ImageView
-            android:id="@+id/img_back_postpurchase"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center|start"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_keyboard_backspace_white_24dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/dangtin"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="30sp" />
-    </FrameLayout>
+        android:background="@color/color_backgroud"
+        android:gravity="center"
+        android:text="@string/dangtin"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,10 +32,12 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/lnl_insert_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/img_camera1_postpurchase"
@@ -316,105 +304,6 @@
             android:textColor="@color/cardview_light_background"
             android:textSize="20sp"
             android:visibility="visible" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/lnl_post_postpurchase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:contentDescription="@null"
-                android:src="@drawable/them_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dangtin"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:id="@+id/lnl_home_postpurchase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:contentDescription="@null"
-                android:src="@drawable/home_icon2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/trangchu"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:id="@+id/lnl_user_postpurchase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:contentDescription="@null"
-                android:src="@drawable/user_male" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/canhan"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
