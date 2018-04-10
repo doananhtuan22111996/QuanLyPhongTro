@@ -11,7 +11,7 @@ public class MainPresenterImp implements IContract.IPresenterMain {
     private IContract.IViewMain iViewMain;
     private int flag;
 
-    public MainPresenterImp(IContract.IViewMain iViewMain) {
+    MainPresenterImp(IContract.IViewMain iViewMain) {
         this.iViewMain = iViewMain;
         this.flag = 0;
     }

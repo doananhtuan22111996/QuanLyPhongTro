@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.main.MainAcativity;
-import com.example.anhtuan.quanlyphongtro.purchase.PurchaseFragment;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;

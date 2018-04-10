@@ -19,10 +19,6 @@ public class BaseResponse {
         return status;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     public Integer getCode() {
         return code;
     }

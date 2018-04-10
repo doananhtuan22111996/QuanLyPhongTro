@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.anhtuan.quanlyphongtro.api.IApi;
+import com.example.anhtuan.quanlyphongtro.base.BaseResponse;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
@@ -13,6 +14,7 @@ import com.example.anhtuan.quanlyphongtro.model.response.PurchaseResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,10 +29,6 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
     PersonalMyPurchaseImp(IContract.IViewPurchase iViewPurchase) {
         this.iViewPurchase = iViewPurchase;
         this.purchaseList = new ArrayList<>();
-    }
-
-    public String getApi_token() {
-        return api_token;
     }
 
     public List<Purchase> getPurchaseList() {
@@ -53,8 +51,8 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
         call.enqueue(new Callback<PurchaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<PurchaseResponse> call, @NonNull Response<PurchaseResponse> response) {
-                if (response.body().getData() != null) {
-                    purchaseList.addAll(response.body().getData());
+                if (Objects.requireNonNull(response.body()).getData() != null) {
+                    purchaseList.addAll(Objects.requireNonNull(response.body()).getData());
                     Log.d("TAG", String.valueOf(purchaseList.size()));
                     iViewPurchase.onSuccess();
                 } else {
@@ -65,6 +63,27 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
             @Override
             public void onFailure(@NonNull Call<PurchaseResponse> call, @NonNull Throwable t) {
                 iViewPurchase.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public void deleteMyPurchase(IApi iApi, int id) {
+        Log.d("TOKEN", api_token);
+        Call<BaseResponse> call = iApi.deletePurchase(api_token, id);
+        call.enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
+                if (response.body() != null) {
+                    iViewPurchase.getTokenSuccess();
+                } else {
+                    iViewPurchase.getTokenFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
+                iViewPurchase.getTokenFailure();
             }
         });
     }

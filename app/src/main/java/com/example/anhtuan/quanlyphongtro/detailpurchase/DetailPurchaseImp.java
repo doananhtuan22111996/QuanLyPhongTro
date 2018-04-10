@@ -15,7 +15,7 @@ public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
     private int id;
     private Purchase purchase;
 
-    public DetailPurchaseImp(IContract.IViewPurchase iViewPurchase) {
+    DetailPurchaseImp(IContract.IViewPurchase iViewPurchase) {
         this.iViewPurchase = iViewPurchase;
         this.purchase = new Purchase();
     }

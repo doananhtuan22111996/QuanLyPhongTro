@@ -118,6 +118,11 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
                 intent.putExtra(BaseStringKey.PURCHASE, purchasePresenterImp.getPurchaseList().get(position));
                 startActivity(intent);
             }
+
+            @Override
+            public void onClickItemDeletePurchase(int postition) {
+
+            }
         });
         purchaseRecyclerViewAdaper.notifyDataSetChanged();
     }

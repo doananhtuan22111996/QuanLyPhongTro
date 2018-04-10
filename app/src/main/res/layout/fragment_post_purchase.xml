@@ -19,8 +19,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -70,27 +69,27 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/thongtincoban"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="7"
+        android:layout_weight="1"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="vertical"
         tools:ignore="NestedWeights">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/thongtincoban"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="140dp"
             android:background="@drawable/shape_nhap"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -114,8 +113,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@android:color/transparent"
+                    android:focusable="true"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="15sp"
                     tools:ignore="LabelFor" />
 
@@ -145,8 +146,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@android:color/transparent"
+                    android:focusable="true"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="15sp"
                     tools:ignore="LabelFor" />
 
@@ -176,8 +179,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@android:color/transparent"
+                    android:focusable="true"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="15sp"
                     tools:ignore="LabelFor" />
 
@@ -207,8 +212,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@android:color/transparent"
+                    android:focusable="true"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="15sp"
                     tools:ignore="LabelFor,TextFields" />
 
@@ -238,8 +245,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@android:color/transparent"
+                    android:focusable="true"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="15sp"
                     tools:ignore="LabelFor" />
 
@@ -254,8 +263,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
             tools:ignore="NestedWeights">
@@ -271,7 +279,7 @@
             <EditText
                 android:id="@+id/edt_decription_postpurchase"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_nhap"
                 android:inputType="textMultiLine"

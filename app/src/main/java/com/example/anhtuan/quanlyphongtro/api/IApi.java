@@ -3,7 +3,6 @@ package com.example.anhtuan.quanlyphongtro.api;
 import com.example.anhtuan.quanlyphongtro.base.BaseResponse;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
-import com.example.anhtuan.quanlyphongtro.model.request.UserRequest;
 import com.example.anhtuan.quanlyphongtro.model.response.PurchaseResponse;
 import com.example.anhtuan.quanlyphongtro.model.response.UserResponse;
 
@@ -12,7 +11,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -21,9 +19,11 @@ public interface IApi {
     String BASE_URL = "https://matas-app.herokuapp.com/api/v1/";
 
     @POST("auth/sign_in")
+        //Sign in
     Call<UserResponse> getUserTokenSignIn(@Body AuthRequest authRequest);
 
     @POST("auth/sign_up")
+        //Sign up
     Call<UserResponse> getUserTokenSignUp(@Body AuthRequest authRequest);
 
     @GET("purchase/my_purchases")
@@ -42,4 +42,7 @@ public interface IApi {
         //Update tro token
     Call<BaseResponse> putPurchase(@Header("Http-Auth-Token") String api_token, @Body PurchaseRequest purchaseRequest, @Path("id") int id);
 
+    @DELETE("purchase/{id}")
+        //Delete purchase
+    Call<BaseResponse> deletePurchase(@Header("Http-Auth-Token") String api_token, @Path("id") int id);
 }

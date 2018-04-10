@@ -59,6 +59,13 @@ public class PersonalMyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<
                 iOnClickItemPurchaseListener.onClickItemPurchase(position);
             }
         });
+
+        holder.imgDeletePurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iOnClickItemPurchaseListener.onClickItemDeletePurchase(position);
+            }
+        });
     }
 
     @Override
@@ -80,6 +87,8 @@ public class PersonalMyPurchaseRecyclerViewAdapter extends RecyclerView.Adapter<
         TextView tvAddressPurchase;
         @BindView(R.id.img_item_purchase)
         ImageView imgItemPurchase;
+        @BindView(R.id.img_delete_purchase)
+        ImageView imgDeletePurchase;
 
         MyPurchaseDataViewHolder(View itemView) {
             super(itemView);

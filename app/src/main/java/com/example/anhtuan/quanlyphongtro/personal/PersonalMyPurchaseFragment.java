@@ -107,7 +107,7 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
     }
 
     private void showMyPurchase() {
-        PersonalMyPurchaseRecyclerViewAdapter personalMyPurchaseRecyclerViewAdapter = new PersonalMyPurchaseRecyclerViewAdapter(getActivity(), personalMyPurchaseImp.getPurchaseList());
+        final PersonalMyPurchaseRecyclerViewAdapter personalMyPurchaseRecyclerViewAdapter = new PersonalMyPurchaseRecyclerViewAdapter(getActivity(), personalMyPurchaseImp.getPurchaseList());
         rcvItemsPersonalmypurchase.setAdapter(personalMyPurchaseRecyclerViewAdapter);
         personalMyPurchaseRecyclerViewAdapter.setiOnClickItemPurchaseListener(new IContract.IOnClickItemPurchaseListener() {
             @Override
@@ -115,6 +115,14 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
                 Intent intent = new Intent(getActivity(), DetailPurchaseActivity.class);
                 intent.putExtra(BaseStringKey.PURCHASE, personalMyPurchaseImp.getPurchaseList().get(position));
                 startActivity(intent);
+            }
+
+            @Override
+            public void onClickItemDeletePurchase(int postition) {
+                int id = personalMyPurchaseImp.getPurchaseList().get(postition).getId();
+                personalMyPurchaseImp.deleteMyPurchase(iApi, id);
+                personalMyPurchaseImp.getPurchaseList().clear();
+                pbWaitmypurchase.setVisibility(View.VISIBLE);
             }
         });
         personalMyPurchaseRecyclerViewAdapter.notifyDataSetChanged();

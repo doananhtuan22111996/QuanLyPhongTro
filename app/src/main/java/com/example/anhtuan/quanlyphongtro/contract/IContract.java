@@ -11,6 +11,8 @@ public interface IContract {
 
     interface IOnClickItemPurchaseListener {
         void onClickItemPurchase(int position);
+
+        void onClickItemDeletePurchase(int postition);
     }
 
     interface IViewLogin {
@@ -75,6 +77,8 @@ public interface IContract {
         void getTokenSharePreference(SharedPreferences sharedPreferences);
 
         void getMyPurchase(IApi iApi);
+
+        void deleteMyPurchase(IApi iApi, int id);
     }
 
     interface IPresenterDetailPurchase {

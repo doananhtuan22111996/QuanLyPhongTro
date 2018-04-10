@@ -210,8 +210,6 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     @Override
     public void getTokenSuccess() {
         getFrag();
-
-
         Log.d("TOKEN", "SUCCESS");
     }
 
@@ -262,6 +260,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         List<String> imageInputStreamList = new ArrayList<>();
         imageInputStreamList.add(String.valueOf(uri));
         Log.d("IMAGE", String.valueOf(imageInputStreamList.get(0)));
+        //check data null
         PurchaseRequest purchaseRequest = new PurchaseRequest(postPurchaseImp.getApi_token(),
                 edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
                 Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),

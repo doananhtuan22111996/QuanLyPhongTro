@@ -1,5 +1,6 @@
 package com.example.anhtuan.quanlyphongtro.purchase.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -42,13 +43,14 @@ public class PurchaseRecyclerViewAdaper extends RecyclerView.Adapter<PurchaseRec
         return new PurchaseDataViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull PurchaseDataViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull PurchaseDataViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Purchase purchase = purchaseList.get(position);
-        holder.tvTitlePurchase.setText(purchase.getTitle().toString());
-        holder.tvPricePurchase.setText(purchase.getPrice().toString());
+        holder.tvTitlePurchase.setText(purchase.getTitle());
+        holder.tvPricePurchase.setText(purchase.getPrice());
         holder.tvAcreagePurchase.setText(purchase.getAcreage().toString() + "m2");
-        holder.tvAddressPurchase.setText(purchase.getAddress().toString());
+        holder.tvAddressPurchase.setText(purchase.getAddress());
         //load iamge purchase
         Glide.with(context).load("https://anh.eva.vn//upload/2-2013/images/2013-04-25/1366856222-nhat-kim-anh-1.jpg").into(holder.imgItemPurchase);
         holder.lnlItemsPurchase.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,7 @@ public class PurchaseRecyclerViewAdaper extends RecyclerView.Adapter<PurchaseRec
                 iOnClickItemPurchaseListener.onClickItemPurchase(position);
             }
         });
+        holder.imgDeletePurchase.setVisibility(View.GONE);
     }
 
     @Override
@@ -78,8 +81,10 @@ public class PurchaseRecyclerViewAdaper extends RecyclerView.Adapter<PurchaseRec
         TextView tvAddressPurchase;
         @BindView(R.id.img_item_purchase)
         ImageView imgItemPurchase;
+        @BindView(R.id.img_delete_purchase)
+        ImageView imgDeletePurchase;
 
-        public PurchaseDataViewHolder(View itemView) {
+        PurchaseDataViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
