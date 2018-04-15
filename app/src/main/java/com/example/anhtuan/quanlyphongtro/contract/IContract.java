@@ -7,6 +7,8 @@ import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 
+import java.util.List;
+
 public interface IContract {
 
     interface IOnClickItemPurchaseListener {
@@ -66,7 +68,7 @@ public interface IContract {
     interface IPresenterPostPurchase {
         void getTokenSharePreference(SharedPreferences sharedPreferences);
 
-        void postPurchase(IApi iApi, PurchaseRequest purchaseRequest);
+        void postPurchase(IApi iApi, String title, String price, String acreage, String phone, String address, String description, List<String> images);
 
         void getFlag(Bundle bundle);
 

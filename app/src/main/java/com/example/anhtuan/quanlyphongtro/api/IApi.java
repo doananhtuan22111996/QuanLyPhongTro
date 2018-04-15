@@ -6,6 +6,7 @@ import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 import com.example.anhtuan.quanlyphongtro.model.response.PurchaseResponse;
 import com.example.anhtuan.quanlyphongtro.model.response.UserResponse;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -36,7 +37,8 @@ public interface IApi {
 
     @POST("purchase")
         //Dang tro
-    Call<BaseResponse> postPurchase(@Header("Http-Auth-Token") String api_token, @Body PurchaseRequest purchaseRequest);
+    Call<BaseResponse> postPurchase(@Header("Http-Auth-Token") String api_token,
+                                    @Body RequestBody requestBody);
 
     @PUT("purchase/{id}")
         //Update tro token

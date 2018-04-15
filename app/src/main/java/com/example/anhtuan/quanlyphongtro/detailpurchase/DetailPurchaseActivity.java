@@ -16,7 +16,7 @@ import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.adapter.DetailPurchaseViewPagerAdapter;
-import com.example.anhtuan.quanlyphongtro.main.MainAcativity;
+import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,7 +110,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         if (v == imgBackDetailpurchase) {
             onBackPressed();
         } else if (v == imgEditDetailpurchase) {
-            Intent intent = new Intent(DetailPurchaseActivity.this, MainAcativity.class);
+            Intent intent = new Intent(DetailPurchaseActivity.this, MainActivity.class);
             intent.putExtra(BaseStringKey.ID, detailPurchaseImp.getPurchase().getId());
             intent.putExtra(BaseStringKey.FLAG, 1);
             intent.putExtra(BaseStringKey.PURCHASE, detailPurchaseImp.getPurchase());

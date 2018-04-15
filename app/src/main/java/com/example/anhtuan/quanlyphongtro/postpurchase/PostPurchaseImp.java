@@ -1,6 +1,7 @@
 package com.example.anhtuan.quanlyphongtro.postpurchase;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -12,6 +13,12 @@ import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 
+import java.io.File;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,8 +67,28 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
     }
 
     @Override
-    public void postPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
-        Call<BaseResponse> call = iApi.postPurchase(api_token, purchaseRequest);
+    public void postPurchase(IApi iApi,
+                             String title,
+                             String price,
+                             String acreage,
+                             String phone,
+                             String address,
+                             String description,
+                             List<String> images) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+        builder.addFormDataPart("title", title);
+        builder.addFormDataPart("price", price);
+        builder.addFormDataPart("acreage", acreage);
+        builder.addFormDataPart("phone", phone);
+        builder.addFormDataPart("address", address);
+        builder.addFormDataPart("description", description);
+        for (String path : images){
+            File file = new File(path);
+            builder.addFormDataPart("images[][image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        }
+
+        Call<BaseResponse> call = iApi.postPurchase(api_token, builder.build());
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {

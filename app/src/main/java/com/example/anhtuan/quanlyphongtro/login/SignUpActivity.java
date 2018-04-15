@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
-import com.example.anhtuan.quanlyphongtro.main.MainAcativity;
+import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
@@ -85,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onSuccess() {
         pbWaitsignup.setVisibility(View.GONE);
-        Intent intent = new Intent(SignUpActivity.this, MainAcativity.class);
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
         Log.d("SIGNUP", "SUCCESS");

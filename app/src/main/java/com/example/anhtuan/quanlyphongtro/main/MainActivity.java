@@ -22,7 +22,7 @@ import com.example.anhtuan.quanlyphongtro.purchase.PurchaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainAcativity extends AppCompatActivity implements View.OnClickListener, IContract.IViewMain {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, IContract.IViewMain {
 
     @BindView(R.id.rl_fragment)
     RelativeLayout rlFragment;

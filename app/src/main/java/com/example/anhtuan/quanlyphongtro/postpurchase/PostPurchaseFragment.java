@@ -76,7 +76,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     PostPurchaseImp postPurchaseImp;
     IApi iApi;
     Bundle bundle;
-    Uri uri;
+    Uri uri1, uri2, uri3;
 
     public static PostPurchaseFragment newInstance() {
         return new PostPurchaseFragment();
@@ -164,9 +164,9 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_FROM_GALLERY_1) {
-            uri = data.getData();
+            uri1 = data.getData();
             try {
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri1);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
                 imgCamera1Postpurchase.setImageBitmap(scaled);
@@ -174,9 +174,9 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
                 e.printStackTrace();
             }
         } else if (requestCode == PICK_FROM_GALLERY_2) {
-            uri = data.getData();
+            uri2 = data.getData();
             try {
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri2);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
                 imgCamera2Postpurchase.setImageBitmap(scaled);
@@ -184,9 +184,9 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
                 e.printStackTrace();
             }
         } else if (requestCode == PICK_FROM_GALLERY_3) {
-            uri = data.getData();
+            uri3 = data.getData();
             try {
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri);
+                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri3);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
                 imgCamera3Postpurchase.setImageBitmap(scaled);
@@ -257,15 +257,16 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     }
 
     private void postPurchase() {
-        List<String> imageInputStreamList = new ArrayList<>();
-        imageInputStreamList.add(String.valueOf(uri));
-        Log.d("IMAGE", String.valueOf(imageInputStreamList.get(0)));
-        //check data null
-        PurchaseRequest purchaseRequest = new PurchaseRequest(postPurchaseImp.getApi_token(),
-                edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
-                Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
-                edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString(), imageInputStreamList);
-        postPurchaseImp.postPurchase(iApi, purchaseRequest);
+        List<String> listImage = new ArrayList<>();
+        //Truyền đây 1 list path của ảnh, string
+        postPurchaseImp.postPurchase(iApi,
+                edtTitlePostpurchase.getText().toString(),
+                edtPricePostpurchase.getText().toString(),
+                edtAcreagePostpurchase.getText().toString(),
+                edtPhonePostpurchase.getText().toString(),
+                edtAddressPostpurchase.getText().toString(),
+                edtDecriptionPostpurchase.getText().toString(),
+                listImage);
     }
 
     private void updatePurchase() {

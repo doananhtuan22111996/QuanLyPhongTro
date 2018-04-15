@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
-import com.example.anhtuan.quanlyphongtro.main.MainAcativity;
+import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
@@ -63,7 +63,7 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
     public void onSuccess() {
         Log.d("SIGNIN", "SUCCESS");
         pbWaitlogin.setVisibility(View.GONE);
-        Intent intent = new Intent(LogInActivity.this, MainAcativity.class);
+        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -76,7 +76,7 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
 
     @Override
     public void checkUserSuccess() {
-        Intent intent = new Intent(LogInActivity.this, MainAcativity.class);
+        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
         startActivity(intent);
         Log.d("SIGNIN", "SUCCESS");
     }
