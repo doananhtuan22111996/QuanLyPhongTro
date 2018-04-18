@@ -9,9 +9,6 @@ import java.util.List;
 
 public class PurchaseRequest {
 
-    @SerializedName("Http-Auth-Token")
-    @Expose
-    String api_token;
     @SerializedName("title")
     @Expose
     private String title;
@@ -32,10 +29,9 @@ public class PurchaseRequest {
     private String description;
     @SerializedName("images[image]")
     @Expose
-    private List<String> images;
+    private List<File> images;
 
-    public PurchaseRequest(String api_token, String title, float price, float acreage, String phone, String address, String description, List<String> images) {
-        this.api_token = api_token;
+    public PurchaseRequest(String title, float price, float acreage, String phone, String address, String description, List<File> images) {
         this.title = title;
         this.price = price;
         this.acreage = acreage;
@@ -45,8 +41,7 @@ public class PurchaseRequest {
         this.images = images;
     }
 
-    public PurchaseRequest(String api_token, String title, float price, float acreage, String phone, String address, String description) {
-        this.api_token = api_token;
+    public PurchaseRequest(String title, float price, float acreage, String phone, String address, String description) {
         this.title = title;
         this.price = price;
         this.acreage = acreage;
@@ -55,7 +50,31 @@ public class PurchaseRequest {
         this.description = description;
     }
 
-    public PurchaseRequest(String api_token) {
-        this.api_token = api_token;
+    public String getTitle() {
+        return title;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public float getAcreage() {
+        return acreage;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<File> getImages() {
+        return images;
     }
 }

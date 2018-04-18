@@ -68,7 +68,7 @@ public interface IContract {
     interface IPresenterPostPurchase {
         void getTokenSharePreference(SharedPreferences sharedPreferences);
 
-        void postPurchase(IApi iApi, String title, String price, String acreage, String phone, String address, String description, List<String> images);
+        void postPurchase(IApi iApi, PurchaseRequest purchaseRequest);
 
         void getFlag(Bundle bundle);
 

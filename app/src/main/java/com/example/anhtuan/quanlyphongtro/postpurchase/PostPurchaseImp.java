@@ -67,35 +67,28 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
     }
 
     @Override
-    public void postPurchase(IApi iApi,
-                             String title,
-                             String price,
-                             String acreage,
-                             String phone,
-                             String address,
-                             String description,
-                             List<String> images) {
+    public void postPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
-        builder.addFormDataPart("title", title);
-        builder.addFormDataPart("price", price);
-        builder.addFormDataPart("acreage", acreage);
-        builder.addFormDataPart("phone", phone);
-        builder.addFormDataPart("address", address);
-        builder.addFormDataPart("description", description);
-        for (String path : images){
-            File file = new File(path);
-            builder.addFormDataPart("images[][image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
-        }
+        builder.addFormDataPart("title", purchaseRequest.getTitle());
+        builder.addFormDataPart("price", String.valueOf(purchaseRequest.getPrice()));
+        builder.addFormDataPart("acreage", String.valueOf(purchaseRequest.getAcreage()));
+        builder.addFormDataPart("phone", purchaseRequest.getPhone());
+        builder.addFormDataPart("address", purchaseRequest.getAddress());
+        builder.addFormDataPart("description", purchaseRequest.getDescription());
+//        for (String path : purchaseRequest.getImages()) {
+//            File file = new File(path);
+//            builder.addFormDataPart("images[][image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+//        }
 
-        Call<BaseResponse> call = iApi.postPurchase(api_token, builder.build());
+        Call<BaseResponse> call = iApi.postPurchase(api_token, purchaseRequest);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
                 if (response.body() != null) {
                     baseResponse = response.body();
                     assert baseResponse != null;
-                    Log.d("STATUS", baseResponse.getStatus().toString());
+                    Log.d("STATUSsssssssssssssss", baseResponse.getStatus().toString());
                     iViewPurchase.onSuccess();
                 } else {
                     iViewPurchase.onFailure();
