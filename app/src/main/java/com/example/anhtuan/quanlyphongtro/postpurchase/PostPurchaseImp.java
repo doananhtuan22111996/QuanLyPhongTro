@@ -76,12 +76,11 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
         builder.addFormDataPart("phone", purchaseRequest.getPhone());
         builder.addFormDataPart("address", purchaseRequest.getAddress());
         builder.addFormDataPart("description", purchaseRequest.getDescription());
-//        for (String path : purchaseRequest.getImages()) {
-//            File file = new File(path);
-//            builder.addFormDataPart("images[][image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
-//        }
+        for (File file : purchaseRequest.getImages()) {
+            builder.addFormDataPart("images[][image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        }
 
-        Call<BaseResponse> call = iApi.postPurchase(api_token, purchaseRequest);
+        Call<BaseResponse> call = iApi.postPurchase(api_token, builder.build());
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
