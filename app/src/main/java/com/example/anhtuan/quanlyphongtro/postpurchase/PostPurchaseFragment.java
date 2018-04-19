@@ -169,43 +169,49 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_FROM_GALLERY_1) {
-            uri1 = data.getData();
-            Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri1));
-            File file = new File(getRealPathFromURI(uri1));
-            imageList.add(file);
-            try {
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri1);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-                imgCamera1Postpurchase.setImageBitmap(scaled);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            if (data != null) {
+                uri1 = data.getData();
+                Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri1));
+                File file = new File(getRealPathFromURI(uri1));
+                imageList.add(file);
+                try {
+                    InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri1);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+                    imgCamera1Postpurchase.setImageBitmap(scaled);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         } else if (requestCode == PICK_FROM_GALLERY_2) {
-            uri2 = data.getData();
-            Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri2));
-            File file = new File(getRealPathFromURI(uri2));
-            imageList.add(file);
-            try {
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri2);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-                imgCamera2Postpurchase.setImageBitmap(scaled);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            if (data != null) {
+                uri2 = data.getData();
+                Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri2));
+                File file = new File(getRealPathFromURI(uri2));
+                imageList.add(file);
+                try {
+                    InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri2);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+                    imgCamera2Postpurchase.setImageBitmap(scaled);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         } else if (requestCode == PICK_FROM_GALLERY_3) {
-            uri3 = data.getData();
-            Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri3));
-            File file = new File(getRealPathFromURI(uri3));
-            imageList.add(file);
-            try {
-                InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri3);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
-                imgCamera3Postpurchase.setImageBitmap(scaled);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            if (data != null) {
+                uri3 = data.getData();
+                Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri3));
+                File file = new File(getRealPathFromURI(uri3));
+                imageList.add(file);
+                try {
+                    InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri3);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 500, 500, true);
+                    imgCamera3Postpurchase.setImageBitmap(scaled);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
