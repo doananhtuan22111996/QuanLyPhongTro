@@ -55,8 +55,6 @@ public interface IContract {
         void getTokenSignIn(IApi iApi, AuthRequest authRequest, SharedPreferences sharedPreferences);
 
         void getTokenSignUp(IApi iApi, AuthRequest authRequest, SharedPreferences sharedPreferences);
-
-        void checkTokenSharePreference(SharedPreferences sharedPreferences);
     }
 
     interface IPresenterPurchase {

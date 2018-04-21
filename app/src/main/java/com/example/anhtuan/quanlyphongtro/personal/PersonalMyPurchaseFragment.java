@@ -1,5 +1,6 @@
 package com.example.anhtuan.quanlyphongtro.personal;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -22,6 +24,7 @@ import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity;
+import com.example.anhtuan.quanlyphongtro.login.LogInActivity;
 import com.example.anhtuan.quanlyphongtro.personal.adapter.PersonalMyPurchaseRecyclerViewAdapter;
 
 import java.util.Objects;
@@ -30,12 +33,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
-public class PersonalMyPurchaseFragment extends Fragment implements IContract.IViewPurchase {
+public class PersonalMyPurchaseFragment extends Fragment implements IContract.IViewPurchase, View.OnClickListener {
 
     @BindView(R.id.pb_waitmypurchase)
     ProgressBar pbWaitmypurchase;
     @BindView(R.id.rcv_items_personalmypurchase)
     RecyclerView rcvItemsPersonalmypurchase;
+    @BindView(R.id.img_logout_personalmypurchase)
+    ImageView imgLogoutPersonalmypurchase;
 
     SharedPreferences sharedPreferences;
     PersonalMyPurchaseImp personalMyPurchaseImp;
@@ -52,6 +57,7 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
         ButterKnife.bind(this, view);
 
         pbWaitmypurchase.setVisibility(View.VISIBLE);
+        imgLogoutPersonalmypurchase.setOnClickListener(this);
 
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
@@ -96,6 +102,17 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
 
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == imgLogoutPersonalmypurchase) {
+            SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
+            sharedPreferences.edit().clear().apply();
+            Intent intent = new Intent(getActivity(), LogInActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
+    }
+
     private void getToken() {
         if (sharedPreferences != null) {
             personalMyPurchaseImp.getTokenSharePreference(sharedPreferences);
@@ -127,5 +144,4 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
         });
         personalMyPurchaseRecyclerViewAdapter.notifyDataSetChanged();
     }
-
 }

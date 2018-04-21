@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lnlUserPurchase.setOnClickListener(this);
 
         getFlag();
-
     }
 
     @Override

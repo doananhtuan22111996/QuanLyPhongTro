@@ -56,7 +56,6 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
         btnDangNhap.setOnClickListener(this);
         btnDangki.setOnClickListener(this);
 
-        checkTokenUser();
     }
 
     @Override
@@ -65,6 +64,7 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
         pbWaitlogin.setVisibility(View.GONE);
         Intent intent = new Intent(LogInActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -103,9 +103,4 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
         }
     }
 
-    private void checkTokenUser() {
-        if (sharedPreferences != null) {
-            loginPresenterImp.checkTokenSharePreference(sharedPreferences);
-        }
-    }
 }

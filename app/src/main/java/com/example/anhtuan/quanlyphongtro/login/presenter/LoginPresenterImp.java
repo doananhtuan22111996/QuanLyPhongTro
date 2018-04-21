@@ -83,16 +83,4 @@ public class LoginPresenterImp implements IContract.IPresenterLogin {
             }
         });
     }
-
-    @Override
-    public void checkTokenSharePreference(SharedPreferences sharedPreferences) {
-        if (!sharedPreferences.getString(BaseStringKey.USER_TOKEN, "").equals("")) {
-            Log.d("TOKEN", sharedPreferences.getString(BaseStringKey.USER_TOKEN, ""));
-            iView.checkUserSuccess();
-        } else {
-            iView.checkUserFailure();
-        }
-
-    }
-
 }
