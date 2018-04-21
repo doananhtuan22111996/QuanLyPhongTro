@@ -38,7 +38,7 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
     RecyclerView rcvListPurchase;
 
     SharedPreferences sharedPreferences;
-    PurchasePresenterImp purchasePresenterImp;
+    PurchasePresenter purchasePresenter;
     PurchaseRecyclerViewAdaper purchaseRecyclerViewAdaper;
     IApi iApi;
 
@@ -57,7 +57,7 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
-        purchasePresenterImp = new PurchasePresenterImp(this);
+        purchasePresenter = new PurchasePresenter(this);
         rcvListPurchase.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
 
 
@@ -100,22 +100,22 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
 
     private void getToken() {
         if (sharedPreferences != null) {
-            purchasePresenterImp.getTokenSharePreference(sharedPreferences);
+            purchasePresenter.getTokenSharePreference(sharedPreferences);
         }
     }
 
     private void getPurchase() {
-        purchasePresenterImp.getPurchase(iApi);
+        purchasePresenter.getPurchase(iApi);
     }
 
     private void showListPurchase() {
-        purchaseRecyclerViewAdaper = new PurchaseRecyclerViewAdaper(getActivity(), purchasePresenterImp.getPurchaseList());
+        purchaseRecyclerViewAdaper = new PurchaseRecyclerViewAdaper(getActivity(), purchasePresenter.getPurchaseList());
         rcvListPurchase.setAdapter(purchaseRecyclerViewAdaper);
         purchaseRecyclerViewAdaper.setiOnClickItemPurchaseListener(new IContract.IOnClickItemPurchaseListener() {
             @Override
             public void onClickItemPurchase(int position) {
                 Intent intent = new Intent(getActivity(), DetailPurchaseActivity.class);
-                intent.putExtra(BaseStringKey.PURCHASE, purchasePresenterImp.getPurchaseList().get(position));
+                intent.putExtra(BaseStringKey.PURCHASE, purchasePresenter.getPurchaseList().get(position));
                 startActivity(intent);
             }
 

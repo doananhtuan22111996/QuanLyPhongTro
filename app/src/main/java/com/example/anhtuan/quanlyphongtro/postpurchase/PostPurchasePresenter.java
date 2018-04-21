@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
+public class PostPurchasePresenter {
 
     private IContract.IViewPurchase iViewPurchase;
     private BaseResponse baseResponse;
@@ -31,16 +31,12 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
     private String api_token;
     private int flag, id;
 
-    PostPurchaseImp(IContract.IViewPurchase iViewPurchase) {
+    PostPurchasePresenter(IContract.IViewPurchase iViewPurchase) {
         this.iViewPurchase = iViewPurchase;
         this.baseResponse = new BaseResponse();
         this.purchase = new Purchase();
         this.flag = 0;
         this.id = 0;
-    }
-
-    String getApi_token() {
-        return api_token;
     }
 
     public int getFlag() {
@@ -55,7 +51,6 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
         return purchase;
     }
 
-    @Override
     public void getTokenSharePreference(SharedPreferences sharedPreferences) {
         if (!sharedPreferences.getString(BaseStringKey.USER_TOKEN, "").equals("")) {
             api_token = sharedPreferences.getString(BaseStringKey.USER_TOKEN, "");
@@ -66,7 +61,6 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
 
     }
 
-    @Override
     public void postPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
@@ -101,7 +95,6 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
         });
     }
 
-    @Override
     public void getFlag(Bundle bundle) {
         if (bundle != null) {
             flag = bundle.getInt(BaseStringKey.FLAG);
@@ -118,7 +111,6 @@ public class PostPurchaseImp implements IContract.IPresenterPostPurchase {
         }
     }
 
-    @Override
     public void updatePurchase(IApi iApi, PurchaseRequest purchaseRequest, int id) {
         Call<BaseResponse> call = iApi.putPurchase(api_token, purchaseRequest, id);
         call.enqueue(new Callback<BaseResponse>() {

@@ -19,12 +19,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginPresenterImp implements IContract.IPresenterLogin {
+public class LoginPresenter {
 
     private IContract.IViewLogin iView;
     private User user;
 
-    public LoginPresenterImp(IContract.IViewLogin iView) {
+    public LoginPresenter(IContract.IViewLogin iView) {
         this.iView = iView;
         this.user = new User();
     }
@@ -40,7 +40,6 @@ public class LoginPresenterImp implements IContract.IPresenterLogin {
         Log.d("WRITE", "SUCCESS");
     }
 
-    @Override
     public void getTokenSignIn(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
         Call<UserResponse> call = iApi.getUserTokenSignIn(authRequest);
         call.enqueue(new Callback<UserResponse>() {
@@ -62,7 +61,6 @@ public class LoginPresenterImp implements IContract.IPresenterLogin {
         });
     }
 
-    @Override
     public void getTokenSignUp(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
         Call<UserResponse> call = iApi.getUserTokenSignUp(authRequest);
         call.enqueue(new Callback<UserResponse>() {

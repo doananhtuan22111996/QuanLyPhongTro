@@ -76,7 +76,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     private static final int PICK_FROM_GALLERY_2 = 2;
     private static final int PICK_FROM_GALLERY_3 = 3;
     SharedPreferences sharedPreferences;
-    PostPurchaseImp postPurchaseImp;
+    PostPurchasePresenter postPurchasePresenter;
     IApi iApi;
     Bundle bundle;
     Uri uri1, uri2, uri3;
@@ -97,7 +97,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         iApi = retrofit.create(IApi.class);
         sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
         bundle = getActivity().getIntent().getExtras();
-        postPurchaseImp = new PostPurchaseImp(this);
+        postPurchasePresenter = new PostPurchasePresenter(this);
 
         btnPostpurchase.setOnClickListener(this);
         btnSavePostpurchase.setOnClickListener(this);
@@ -240,7 +240,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void getFlagSuccess() {
-        if (postPurchaseImp.getFlag() == 1) {
+        if (postPurchasePresenter.getFlag() == 1) {
             btnSavePostpurchase.setVisibility(View.VISIBLE);
             btnPostpurchase.setVisibility(View.GONE);
             lnlInsertImage.setVisibility(View.GONE);
@@ -258,21 +258,21 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     }
 
     private void getToken() {
-        postPurchaseImp.getTokenSharePreference(sharedPreferences);
+        postPurchasePresenter.getTokenSharePreference(sharedPreferences);
     }
 
     private void getFrag() {
-        postPurchaseImp.getFlag(bundle);
+        postPurchasePresenter.getFlag(bundle);
     }
 
     private void showDetail() {
-        edtTitlePostpurchase.setText(postPurchaseImp.getPurchase().getTitle());
-        edtPricePostpurchase.setText(String.valueOf(postPurchaseImp.getPurchase().getPrice()));
-        edtAcreagePostpurchase.setText(String.valueOf(postPurchaseImp.getPurchase().getAcreage()));
-        edtPhonePostpurchase.setText(String.valueOf(postPurchaseImp.getPurchase().getPhone()));
-        edtAddressPostpurchase.setText(postPurchaseImp.getPurchase().getAddress());
-        if (postPurchaseImp.getPurchase().getDescription() != null) {
-            edtDecriptionPostpurchase.setText(postPurchaseImp.getPurchase().getDescription());
+        edtTitlePostpurchase.setText(postPurchasePresenter.getPurchase().getTitle());
+        edtPricePostpurchase.setText(String.valueOf(postPurchasePresenter.getPurchase().getPrice()));
+        edtAcreagePostpurchase.setText(String.valueOf(postPurchasePresenter.getPurchase().getAcreage()));
+        edtPhonePostpurchase.setText(String.valueOf(postPurchasePresenter.getPurchase().getPhone()));
+        edtAddressPostpurchase.setText(postPurchasePresenter.getPurchase().getAddress());
+        if (postPurchasePresenter.getPurchase().getDescription() != null) {
+            edtDecriptionPostpurchase.setText(postPurchasePresenter.getPurchase().getDescription());
         }
     }
 
@@ -282,14 +282,14 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         PurchaseRequest purchaseRequest = new PurchaseRequest(edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
                 Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
                 edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString(), imageList);
-        postPurchaseImp.postPurchase(iApi, purchaseRequest);
+        postPurchasePresenter.postPurchase(iApi, purchaseRequest);
     }
 
     private void updatePurchase() {
         PurchaseRequest purchaseRequest = new PurchaseRequest(edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
                 Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
                 edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString());
-        postPurchaseImp.updatePurchase(iApi, purchaseRequest, postPurchaseImp.getId());
+        postPurchasePresenter.updatePurchase(iApi, purchaseRequest, postPurchasePresenter.getId());
     }
 
     private String getRealPathFromURI(Uri contentUri) {

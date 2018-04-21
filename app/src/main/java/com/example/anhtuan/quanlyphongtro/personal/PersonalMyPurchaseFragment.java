@@ -1,6 +1,5 @@
 package com.example.anhtuan.quanlyphongtro.personal;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +42,7 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
     ImageView imgLogoutPersonalmypurchase;
 
     SharedPreferences sharedPreferences;
-    PersonalMyPurchaseImp personalMyPurchaseImp;
+    PersonalMyPurchasePresenter personalMyPurchasePresenter;
     IApi iApi;
 
     public static PersonalMyPurchaseFragment newInstance() {
@@ -62,7 +61,7 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
-        personalMyPurchaseImp = new PersonalMyPurchaseImp(this);
+        personalMyPurchasePresenter = new PersonalMyPurchasePresenter(this);
         rcvItemsPersonalmypurchase.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
 
         getToken();
@@ -115,30 +114,30 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
 
     private void getToken() {
         if (sharedPreferences != null) {
-            personalMyPurchaseImp.getTokenSharePreference(sharedPreferences);
+            personalMyPurchasePresenter.getTokenSharePreference(sharedPreferences);
         }
     }
 
     private void getMyPurchase() {
-        personalMyPurchaseImp.getMyPurchase(iApi);
+        personalMyPurchasePresenter.getMyPurchase(iApi);
     }
 
     private void showMyPurchase() {
-        final PersonalMyPurchaseRecyclerViewAdapter personalMyPurchaseRecyclerViewAdapter = new PersonalMyPurchaseRecyclerViewAdapter(getActivity(), personalMyPurchaseImp.getPurchaseList());
+        final PersonalMyPurchaseRecyclerViewAdapter personalMyPurchaseRecyclerViewAdapter = new PersonalMyPurchaseRecyclerViewAdapter(getActivity(), personalMyPurchasePresenter.getPurchaseList());
         rcvItemsPersonalmypurchase.setAdapter(personalMyPurchaseRecyclerViewAdapter);
         personalMyPurchaseRecyclerViewAdapter.setiOnClickItemPurchaseListener(new IContract.IOnClickItemPurchaseListener() {
             @Override
             public void onClickItemPurchase(int position) {
                 Intent intent = new Intent(getActivity(), DetailPurchaseActivity.class);
-                intent.putExtra(BaseStringKey.PURCHASE, personalMyPurchaseImp.getPurchaseList().get(position));
+                intent.putExtra(BaseStringKey.PURCHASE, personalMyPurchasePresenter.getPurchaseList().get(position));
                 startActivity(intent);
             }
 
             @Override
             public void onClickItemDeletePurchase(int postition) {
-                int id = personalMyPurchaseImp.getPurchaseList().get(postition).getId();
-                personalMyPurchaseImp.deleteMyPurchase(iApi, id);
-                personalMyPurchaseImp.getPurchaseList().clear();
+                int id = personalMyPurchasePresenter.getPurchaseList().get(postition).getId();
+                personalMyPurchasePresenter.deleteMyPurchase(iApi, id);
+                personalMyPurchasePresenter.getPurchaseList().clear();
                 pbWaitmypurchase.setVisibility(View.VISIBLE);
             }
         });

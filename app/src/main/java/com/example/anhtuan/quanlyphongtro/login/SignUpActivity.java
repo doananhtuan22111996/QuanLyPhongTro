@@ -19,7 +19,7 @@ import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
-import com.example.anhtuan.quanlyphongtro.login.presenter.LoginPresenterImp;
+import com.example.anhtuan.quanlyphongtro.login.presenter.LoginPresenter;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 
 import butterknife.BindView;
@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     Button btnDangki;
 
     SharedPreferences sharedPreferences;
-    LoginPresenterImp loginPresenterImp;
+    LoginPresenter loginPresenter;
     IApi iApi;
     @BindView(R.id.pb_waitsignup)
     ProgressBar pbWaitsignup;
@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
-        loginPresenterImp = new LoginPresenterImp(this);
+        loginPresenter = new LoginPresenter(this);
 
         imgbBack.setOnClickListener(this);
         btnDangki.setOnClickListener(this);
@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if (edtPassword.getText().toString().equals(edtConfirmationPassword.getText().toString())) {
                     AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(),
                             edtPassword.getText().toString(), edtConfirmationPassword.getText().toString());
-                    loginPresenterImp.getTokenSignUp(iApi, authRequest, sharedPreferences);
+                    loginPresenter.getTokenSignUp(iApi, authRequest, sharedPreferences);
                 } else {
                     pbWaitsignup.setVisibility(View.GONE);
                     Toast.makeText(this, "Password and ConfimPassword failure", Toast.LENGTH_SHORT).show();

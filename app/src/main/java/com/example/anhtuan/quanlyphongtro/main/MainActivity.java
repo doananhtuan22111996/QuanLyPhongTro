@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout lnlUserPurchase;
 
     Bundle bundle;
-    MainPresenterImp mainPresenterImp;
+    MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         bundle = getIntent().getExtras();
-        mainPresenterImp = new MainPresenterImp(this);
+        mainPresenter = new MainPresenter(this);
 
         lnlPostPurchase.setOnClickListener(this);
         lnlHomePurchase.setOnClickListener(this);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void getFlagSuccess() {
-        if (mainPresenterImp.getFlag() == 1) {
+        if (mainPresenter.getFlag() == 1) {
             replaceFragmentContent(PostPurchaseFragment.newInstance());
             setColorFooder(0);
         }
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getFlag() {
-        mainPresenterImp.getFlag(bundle);
+        mainPresenter.getFlag(bundle);
     }
 
     private void replaceFragmentContent(Fragment fragment) {

@@ -17,13 +17,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PurchasePresenterImp implements IContract.IPresenterPurchase {
+public class PurchasePresenter {
 
     private IContract.IViewPurchase iView;
     private String api_token;
     private List<Purchase> purchaseList;
 
-    PurchasePresenterImp(IContract.IViewPurchase iView) {
+    PurchasePresenter(IContract.IViewPurchase iView) {
         this.iView = iView;
         purchaseList = new ArrayList<>();
     }
@@ -32,7 +32,6 @@ public class PurchasePresenterImp implements IContract.IPresenterPurchase {
         return purchaseList;
     }
 
-    @Override
     public void getTokenSharePreference(SharedPreferences sharedPreferences) {
         if (!sharedPreferences.getString(BaseStringKey.USER_TOKEN, "").equals("")) {
             api_token = sharedPreferences.getString(BaseStringKey.USER_TOKEN, "");
@@ -42,7 +41,6 @@ public class PurchasePresenterImp implements IContract.IPresenterPurchase {
         }
     }
 
-    @Override
     public void getPurchase(IApi iApi) {
         Call<PurchaseResponse> call = iApi.getPurchase(api_token);
         call.enqueue(new Callback<PurchaseResponse>() {

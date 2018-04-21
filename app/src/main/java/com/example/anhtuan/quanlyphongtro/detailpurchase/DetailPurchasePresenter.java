@@ -9,13 +9,13 @@ import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.model.User;
 import com.google.gson.Gson;
 
-public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
+public class DetailPurchasePresenter {
 
     private IContract.IViewPurchase iViewPurchase;
     private int id;
     private Purchase purchase;
 
-    DetailPurchaseImp(IContract.IViewPurchase iViewPurchase) {
+    DetailPurchasePresenter(IContract.IViewPurchase iViewPurchase) {
         this.iViewPurchase = iViewPurchase;
         this.purchase = new Purchase();
     }
@@ -28,7 +28,6 @@ public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
         return purchase;
     }
 
-    @Override
     public void getIdSharePreference(SharedPreferences sharedPreferences) {
         if (!sharedPreferences.getString(BaseStringKey.INFO_USER, "").equals("")) {
             String tempUser = sharedPreferences.getString(BaseStringKey.INFO_USER, "");
@@ -41,7 +40,6 @@ public class DetailPurchaseImp implements IContract.IPresenterDetailPurchase {
         }
     }
 
-    @Override
     public void getPurchaseBundel(Bundle bundle) {
         if (bundle != null) {
             purchase = (Purchase) bundle.getSerializable(BaseStringKey.PURCHASE);

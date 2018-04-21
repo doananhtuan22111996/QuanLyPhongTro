@@ -44,7 +44,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
 
     DetailPurchaseViewPagerAdapter detailPurchaseViewPagerAdapter;
     SharedPreferences sharedPreferences;
-    DetailPurchaseImp detailPurchaseImp;
+    DetailPurchasePresenter detailPurchasePresenter;
     Bundle bundle;
 
 
@@ -56,7 +56,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
 
         bundle = getIntent().getExtras();
         sharedPreferences = getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
-        detailPurchaseImp = new DetailPurchaseImp(this);
+        detailPurchasePresenter = new DetailPurchasePresenter(this);
         detailPurchaseViewPagerAdapter = new DetailPurchaseViewPagerAdapter(getSupportFragmentManager());
 
         vpImageFragdetailpurchase.setAdapter(detailPurchaseViewPagerAdapter);
@@ -82,7 +82,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     @Override
     public void getTokenSuccess() {
         getPurchase();
-        if (detailPurchaseImp.getId() == detailPurchaseImp.getPurchase().getUser().getId()) {
+        if (detailPurchasePresenter.getId() == detailPurchasePresenter.getPurchase().getUser().getId()) {
             imgEditDetailpurchase.setVisibility(View.VISIBLE);
         } else {
             imgEditDetailpurchase.setVisibility(View.GONE);
@@ -111,31 +111,31 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
             onBackPressed();
         } else if (v == imgEditDetailpurchase) {
             Intent intent = new Intent(DetailPurchaseActivity.this, MainActivity.class);
-            intent.putExtra(BaseStringKey.ID, detailPurchaseImp.getPurchase().getId());
+            intent.putExtra(BaseStringKey.ID, detailPurchasePresenter.getPurchase().getId());
             intent.putExtra(BaseStringKey.FLAG, 1);
-            intent.putExtra(BaseStringKey.PURCHASE, detailPurchaseImp.getPurchase());
-            Log.d("FLAG_", String.valueOf(detailPurchaseImp.getPurchase().getId()));
+            intent.putExtra(BaseStringKey.PURCHASE, detailPurchasePresenter.getPurchase());
+            Log.d("FLAG_", String.valueOf(detailPurchasePresenter.getPurchase().getId()));
             startActivity(intent);
         }
     }
 
     private void getToken() {
         if (sharedPreferences != null) {
-            detailPurchaseImp.getIdSharePreference(sharedPreferences);
+            detailPurchasePresenter.getIdSharePreference(sharedPreferences);
         }
     }
 
     private void getPurchase() {
-        detailPurchaseImp.getPurchaseBundel(bundle);
+        detailPurchasePresenter.getPurchaseBundel(bundle);
     }
 
     private void showDetailPurchase() {
-        tvTitleDetailpurchase.setText(detailPurchaseImp.getPurchase().getTitle());
-        tvPriceDetailpurchase.setText(String.valueOf(detailPurchaseImp.getPurchase().getPrice()));
-        tvAcreageDetailpurchase.setText(String.valueOf(detailPurchaseImp.getPurchase().getAddress()));
-        tvAddressDetailpurchase.setText(detailPurchaseImp.getPurchase().getAddress());
-        tvPhoneDetailpuchase.setText(detailPurchaseImp.getPurchase().getPhone());
-        tvDecriptionDetailpurchase.setText(detailPurchaseImp.getPurchase().getDescription());
+        tvTitleDetailpurchase.setText(detailPurchasePresenter.getPurchase().getTitle());
+        tvPriceDetailpurchase.setText(String.valueOf(detailPurchasePresenter.getPurchase().getPrice()));
+        tvAcreageDetailpurchase.setText(String.valueOf(detailPurchasePresenter.getPurchase().getAddress()));
+        tvAddressDetailpurchase.setText(detailPurchasePresenter.getPurchase().getAddress());
+        tvPhoneDetailpuchase.setText(detailPurchasePresenter.getPurchase().getPhone());
+        tvDecriptionDetailpurchase.setText(detailPurchasePresenter.getPurchase().getDescription());
     }
 
 }

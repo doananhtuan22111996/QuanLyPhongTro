@@ -18,7 +18,7 @@ import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
-import com.example.anhtuan.quanlyphongtro.login.presenter.LoginPresenterImp;
+import com.example.anhtuan.quanlyphongtro.login.presenter.LoginPresenter;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 
 import butterknife.BindView;
@@ -36,7 +36,7 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
     @BindView(R.id.btn_dangki)
     Button btnDangki;
 
-    LoginPresenterImp loginPresenterImp;
+    LoginPresenter loginPresenter;
     SharedPreferences sharedPreferences;
     IApi iApi;
     @BindView(R.id.pb_waitlogin)
@@ -51,7 +51,7 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
-        loginPresenterImp = new LoginPresenterImp(this);
+        loginPresenter = new LoginPresenter(this);
 
         btnDangNhap.setOnClickListener(this);
         btnDangki.setOnClickListener(this);
@@ -92,7 +92,7 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
             pbWaitlogin.setVisibility(View.VISIBLE);
             if (edtTaikhoan.getText().length() != 0 || edtPassword.getText().length() != 0) {
                 AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(), edtPassword.getText().toString());
-                loginPresenterImp.getTokenSignIn(iApi, authRequest, sharedPreferences);
+                loginPresenter.getTokenSignIn(iApi, authRequest, sharedPreferences);
             } else {
                 onFailure();
             }

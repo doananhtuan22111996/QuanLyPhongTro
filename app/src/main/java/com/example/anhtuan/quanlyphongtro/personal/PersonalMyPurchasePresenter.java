@@ -20,13 +20,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurchase {
+public class PersonalMyPurchasePresenter {
 
     private IContract.IViewPurchase iViewPurchase;
     private String api_token;
     private List<Purchase> purchaseList;
 
-    PersonalMyPurchaseImp(IContract.IViewPurchase iViewPurchase) {
+    PersonalMyPurchasePresenter(IContract.IViewPurchase iViewPurchase) {
         this.iViewPurchase = iViewPurchase;
         this.purchaseList = new ArrayList<>();
     }
@@ -35,7 +35,6 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
         return purchaseList;
     }
 
-    @Override
     public void getTokenSharePreference(SharedPreferences sharedPreferences) {
         if (!sharedPreferences.getString(BaseStringKey.USER_TOKEN, "").equals("")) {
             api_token = sharedPreferences.getString(BaseStringKey.USER_TOKEN, "");
@@ -45,7 +44,6 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
         }
     }
 
-    @Override
     public void getMyPurchase(IApi iApi) {
         Call<PurchaseResponse> call = iApi.getMyPurchase(api_token);
         call.enqueue(new Callback<PurchaseResponse>() {
@@ -67,7 +65,6 @@ public class PersonalMyPurchaseImp implements IContract.IPresenterPersonalMyPurc
         });
     }
 
-    @Override
     public void deleteMyPurchase(IApi iApi, int id) {
         Log.d("TOKEN", api_token);
         Call<BaseResponse> call = iApi.deletePurchase(api_token, id);
