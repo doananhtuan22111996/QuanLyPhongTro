@@ -1,5 +1,4 @@
-package com.example.anhtuan.quanlyphongtro.login.presenter;
-
+package com.example.anhtuan.quanlyphongtro.login;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -19,14 +18,56 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginPresenter {
+public class LoginInteractor {
 
-    private IContract.IViewLogin iView;
+    private IContract.ILoginInteractor loginInteractor;
     private User user;
 
-    public LoginPresenter(IContract.IViewLogin iView) {
-        this.iView = iView;
-        this.user = new User();
+    LoginInteractor(IContract.ILoginInteractor loginInteractor) {
+        this.loginInteractor = loginInteractor;
+        user = new User();
+    }
+
+    public void checkLoginSignIn(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
+        Call<UserResponse> call = iApi.getUserTokenSignIn(authRequest);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                if (response.body() != null) {
+                    user = Objects.requireNonNull(response.body()).getData();
+                    writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
+                    loginInteractor.onCheckSuccess();
+                } else {
+                    loginInteractor.onCheckFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                loginInteractor.onCheckFailure();
+            }
+        });
+    }
+
+    public void checkLoginSignUp(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
+        Call<UserResponse> call = iApi.getUserTokenSignUp(authRequest);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
+                if (response.body() != null) {
+                    user = Objects.requireNonNull(response.body()).getData();
+                    writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
+                    loginInteractor.onCheckSuccess();
+                } else {
+                    loginInteractor.onCheckFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
+                loginInteractor.onCheckFailure();
+            }
+        });
     }
 
     private void writeInfoUserSharePreference(SharedPreferences sharedPreferences, User user, String api_token) {
@@ -40,45 +81,5 @@ public class LoginPresenter {
         Log.d("WRITE", "SUCCESS");
     }
 
-    public void getTokenSignIn(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
-        Call<UserResponse> call = iApi.getUserTokenSignIn(authRequest);
-        call.enqueue(new Callback<UserResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-                if (response.body() != null) {
-                    user = Objects.requireNonNull(response.body()).getData();
-                    writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
-                    iView.onSuccess();
-                } else {
-                    iView.onFailure();
-                }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                iView.onFailure();
-            }
-        });
-    }
-
-    public void getTokenSignUp(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
-        Call<UserResponse> call = iApi.getUserTokenSignUp(authRequest);
-        call.enqueue(new Callback<UserResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<UserResponse> call, @NonNull Response<UserResponse> response) {
-                if (response.body() != null) {
-                    user = Objects.requireNonNull(response.body()).getData();
-                    writeInfoUserSharePreference(sharedPreferences, user, user.getApiToken());
-                    iView.onSuccess();
-                } else {
-                    iView.onFailure();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                iView.onFailure();
-            }
-        });
-    }
 }

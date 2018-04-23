@@ -19,7 +19,6 @@ import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
-import com.example.anhtuan.quanlyphongtro.login.presenter.LoginPresenter;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 
 import butterknife.BindView;
@@ -66,19 +65,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             onBackPressed();
         } else if (v == btnDangki) {
             pbWaitsignup.setVisibility(View.VISIBLE);
-            if (edtTaikhoan.getText().length() != 0 || edtPassword.getText().length() != 0 || edtConfirmationPassword.getText().length() != 0) {
-                if (edtPassword.getText().toString().equals(edtConfirmationPassword.getText().toString())) {
-                    AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(),
-                            edtPassword.getText().toString(), edtConfirmationPassword.getText().toString());
-                    loginPresenter.getTokenSignUp(iApi, authRequest, sharedPreferences);
-                } else {
-                    pbWaitsignup.setVisibility(View.GONE);
-                    Toast.makeText(this, "Password and ConfimPassword failure", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                pbWaitsignup.setVisibility(View.GONE);
-                Toast.makeText(this, "Input Info", Toast.LENGTH_SHORT).show();
-            }
+            AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(),
+                    edtPassword.getText().toString(), edtConfirmationPassword.getText().toString());
+            loginPresenter.getTokenSignUp(iApi, authRequest, sharedPreferences);
         }
     }
 
@@ -94,17 +83,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onFailure() {
         pbWaitsignup.setVisibility(View.GONE);
-        Toast.makeText(this, "Email has already been taken", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "SIGN UP FAILUE", Toast.LENGTH_SHORT).show();
         Log.d("SIGNUP", "FAILURE");
-    }
-
-    @Override
-    public void checkUserSuccess() {
-
-    }
-
-    @Override
-    public void checkUserFailure() {
-
     }
 }

@@ -24,12 +24,13 @@
             android:src="@drawable/ic_keyboard_backspace_white_24dp" />
 
         <TextView
-            android:id="@+id/tv_title_detailpurchase"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
+            android:ellipsize="end"
             android:gravity="center"
-            android:hint="@string/title_purchase"
+            android:text="@string/thongtinchitiet"
+            android:maxLines="1"
             android:textColor="@color/cardview_light_background"
             android:textSize="30sp" />
 
@@ -57,11 +58,14 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/tv_title_detailpurchase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/chothuenhanguyencan"
             android:textAlignment="center"
-            android:textSize="15sp"
+            android:textSize="17sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textStyle="bold" />
 
         <LinearLayout

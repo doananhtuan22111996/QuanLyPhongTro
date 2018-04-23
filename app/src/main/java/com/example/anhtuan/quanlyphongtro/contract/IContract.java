@@ -12,10 +12,12 @@ public interface IContract {
         void onSuccess();
 
         void onFailure();
+    }
 
-        void checkUserSuccess();
+    interface  ILoginInteractor{
+        void onCheckSuccess();
 
-        void checkUserFailure();
+        void onCheckFailure();
     }
 
     interface IViewPurchase {

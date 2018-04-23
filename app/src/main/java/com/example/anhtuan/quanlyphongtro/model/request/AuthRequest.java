@@ -27,4 +27,16 @@ public class AuthRequest {
         this.password = password;
         this.password_confirmation = password_confirmation;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPassword_confirmation() {
+        return password_confirmation;
+    }
 }

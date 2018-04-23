@@ -60,7 +60,6 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
         purchasePresenter = new PurchasePresenter(this);
         rcvListPurchase.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
 
-
         getToken();
         return view;
     }

@@ -18,7 +18,6 @@ import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
-import com.example.anhtuan.quanlyphongtro.login.presenter.LoginPresenter;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 
 import butterknife.BindView;
@@ -60,7 +59,6 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
 
     @Override
     public void onSuccess() {
-        Log.d("SIGNIN", "SUCCESS");
         pbWaitlogin.setVisibility(View.GONE);
         Intent intent = new Intent(LogInActivity.this, MainActivity.class);
         startActivity(intent);
@@ -71,33 +69,15 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
     public void onFailure() {
         pbWaitlogin.setVisibility(View.GONE);
         Toast.makeText(this, "LOGIN FAILURE", Toast.LENGTH_SHORT).show();
-        Log.d("SIGNIN", "FAILURE");
-    }
-
-    @Override
-    public void checkUserSuccess() {
-        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-        startActivity(intent);
-        Log.d("SIGNIN", "SUCCESS");
-    }
-
-    @Override
-    public void checkUserFailure() {
-        Log.d("SIGNIN", "FAILURE");
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnDangNhap) {
             pbWaitlogin.setVisibility(View.VISIBLE);
-            if (edtTaikhoan.getText().length() != 0 || edtPassword.getText().length() != 0) {
-                AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(), edtPassword.getText().toString());
-                loginPresenter.getTokenSignIn(iApi, authRequest, sharedPreferences);
-            } else {
-                onFailure();
-            }
-        }
-        if (v == btnDangki) {
+            AuthRequest authRequest = new AuthRequest(edtTaikhoan.getText().toString(), edtPassword.getText().toString());
+            loginPresenter.getTokenSignIn(iApi, authRequest, sharedPreferences);
+        } else if (v == btnDangki) {
             Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
             startActivity(intent);
         }

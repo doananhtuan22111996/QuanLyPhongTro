@@ -277,8 +277,6 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     }
 
     private void postPurchase(List<File> imageList) {
-        //Truyền đây 1 list path của ảnh, string
-        Log.d("IAMGEEEEEEEEEEE", imageList.get(0).toString());
         PurchaseRequest purchaseRequest = new PurchaseRequest(edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
                 Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
                 edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString(), imageList);
