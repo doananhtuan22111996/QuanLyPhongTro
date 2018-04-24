@@ -3,49 +3,60 @@ package com.example.anhtuan.quanlyphongtro.detailpurchase;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
-import com.example.anhtuan.quanlyphongtro.model.User;
-import com.google.gson.Gson;
 
-public class DetailPurchasePresenter {
+public class DetailPurchasePresenter implements IContract.IPurchaseInteractor.IDetailPurchaseInteractor {
 
-    private IContract.IViewPurchase iViewPurchase;
-    private int id;
-    private Purchase purchase;
+    private IContract.IViewPurchase.IViewDetailPurchase iViewDetailPurchase;
+    private DetailPurchaseInteractor detailPurchaseInteractor;
 
-    DetailPurchasePresenter(IContract.IViewPurchase iViewPurchase) {
-        this.iViewPurchase = iViewPurchase;
-        this.purchase = new Purchase();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Purchase getPurchase() {
-        return purchase;
+    DetailPurchasePresenter(IContract.IViewPurchase.IViewDetailPurchase iViewDetailPurchase) {
+        this.iViewDetailPurchase = iViewDetailPurchase;
+        detailPurchaseInteractor = new DetailPurchaseInteractor(this);
     }
 
     public void getIdSharePreference(SharedPreferences sharedPreferences) {
-        if (!sharedPreferences.getString(BaseStringKey.INFO_USER, "").equals("")) {
-            String tempUser = sharedPreferences.getString(BaseStringKey.INFO_USER, "");
-            Gson gson = new Gson();
-            User user = gson.fromJson(tempUser, User.class);
-            id = user.getId();
-            iViewPurchase.getTokenSuccess();
+        if (sharedPreferences != null) {
+            detailPurchaseInteractor.getIdSharePreference(sharedPreferences);
         } else {
-            iViewPurchase.getTokenFailure();
+            iViewDetailPurchase.callIdFailure();
         }
     }
 
     public void getPurchaseBundel(Bundle bundle) {
         if (bundle != null) {
-            purchase = (Purchase) bundle.getSerializable(BaseStringKey.PURCHASE);
-            iViewPurchase.onSuccess();
+            detailPurchaseInteractor.getPurchaseBundel(bundle);
         } else {
-            iViewPurchase.onFailure();
+            iViewDetailPurchase.callPurchaseFailure();
         }
+    }
+
+    @Override
+    public void getPurchaseSuccess(Purchase purchase) {
+        if (purchase == null) {
+            iViewDetailPurchase.callPurchaseFailure();
+        } else {
+            iViewDetailPurchase.callPurchaseSuccess(purchase);
+        }
+    }
+
+    @Override
+    public void getPurchaseFailure() {
+        iViewDetailPurchase.callPurchaseFailure();
+    }
+
+    @Override
+    public void getIdSuccess(int id) {
+        if (String.valueOf(id).isEmpty()) {
+            iViewDetailPurchase.callIdFailure();
+        } else {
+            iViewDetailPurchase.callIdSuccess(id);
+        }
+    }
+
+    @Override
+    public void getIdFailure() {
+        iViewDetailPurchase.callIdFailure();
     }
 }

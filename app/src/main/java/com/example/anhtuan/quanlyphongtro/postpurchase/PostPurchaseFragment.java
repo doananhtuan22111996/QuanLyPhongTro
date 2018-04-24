@@ -5,19 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.CursorLoader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,20 +28,19 @@ import com.example.anhtuan.quanlyphongtro.api.IApi;
 import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
+import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
-public class PostPurchaseFragment extends Fragment implements View.OnClickListener, IContract.IViewPurchase {
+public class PostPurchaseFragment extends Fragment implements View.OnClickListener, IContract.IViewPurchase.IViewPostPurchase {
 
     @BindView(R.id.img_camera1_postpurchase)
     ImageView imgCamera1Postpurchase;
@@ -80,7 +75,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     IApi iApi;
     Bundle bundle;
     Uri uri1, uri2, uri3;
-    List<File> imageList;
+    String api_token;
 
     public static PostPurchaseFragment newInstance() {
         return new PostPurchaseFragment();
@@ -93,7 +88,6 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         ButterKnife.bind(this, view);
 
         Retrofit retrofit = MainApplication.getRetrofit();
-        imageList = new ArrayList<>();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
         bundle = getActivity().getIntent().getExtras();
@@ -112,11 +106,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v == btnPostpurchase) {
-            postPurchase(imageList);
-        } else if (v == btnSavePostpurchase) {
-            updatePurchase();
-        } else if (v == imgCamera1Postpurchase) {
+        if (v == imgCamera1Postpurchase) {
             try {
                 if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY_1);
@@ -171,9 +161,6 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         if (requestCode == PICK_FROM_GALLERY_1) {
             if (data != null) {
                 uri1 = data.getData();
-                Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri1));
-                File file = new File(getRealPathFromURI(uri1));
-                imageList.add(file);
                 try {
                     InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri1);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -186,9 +173,6 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         } else if (requestCode == PICK_FROM_GALLERY_2) {
             if (data != null) {
                 uri2 = data.getData();
-                Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri2));
-                File file = new File(getRealPathFromURI(uri2));
-                imageList.add(file);
                 try {
                     InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri2);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -201,9 +185,6 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         } else if (requestCode == PICK_FROM_GALLERY_3) {
             if (data != null) {
                 uri3 = data.getData();
-                Log.d("IMAGEEEEEEEE", getRealPathFromURI(uri3));
-                File file = new File(getRealPathFromURI(uri3));
-                imageList.add(file);
                 try {
                     InputStream inputStream = Objects.requireNonNull(getActivity()).getContentResolver().openInputStream(uri3);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
@@ -217,44 +198,63 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onSuccess() {
-        Toast.makeText(getActivity(), "POST SUCCCESS", Toast.LENGTH_SHORT).show();
-        Log.d("POST", "SUCCESS");
-    }
-
-    @Override
-    public void onFailure() {
-        Log.d("POST", "FAILURE");
-    }
-
-    @Override
-    public void getTokenSuccess() {
+    public void callTokenSuccess(final String token) {
+        this.api_token = token;
         getFrag();
-        Log.d("TOKEN", "SUCCESS");
+        btnPostpurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postPurchase(token);
+            }
+        });
     }
 
     @Override
-    public void getTokenFailure() {
-        Log.d("TOKEN", "FAILURE");
+    public void callTokenFailure() {
+        Toast.makeText(getActivity(), "GET TOKEN FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void getFlagSuccess() {
-        if (postPurchasePresenter.getFlag() == 1) {
+    public void callFlagSuccess(final Purchase purchase, final int id, int flag) {
+        if (flag == 1) {
             btnSavePostpurchase.setVisibility(View.VISIBLE);
             btnPostpurchase.setVisibility(View.GONE);
             lnlInsertImage.setVisibility(View.GONE);
-            showDetail();
+            showDetail(purchase);
         }
-        Log.d("FLAG", "SUCCESS");
+        btnSavePostpurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePurchase(id, api_token);
+            }
+        });
     }
 
     @Override
-    public void getFlagFailure() {
+    public void callFlagFailure() {
         lnlInsertImage.setVisibility(View.VISIBLE);
         btnSavePostpurchase.setVisibility(View.GONE);
         btnPostpurchase.setVisibility(View.VISIBLE);
-        Log.d("FLAG", "FAILURE");
+    }
+
+    @Override
+    public void onPostSuccess() {
+        Toast.makeText(getActivity(), "POST SUCCESS", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPostFailure() {
+        Toast.makeText(getActivity(), "POST FAILURE", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUpdateSuccess() {
+        Toast.makeText(getActivity(), "UPDATE SUCCESS", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onUpdateFailure() {
+        Toast.makeText(getActivity(), "UPDATE FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     private void getToken() {
@@ -265,39 +265,28 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         postPurchasePresenter.getFlag(bundle);
     }
 
-    private void showDetail() {
-        edtTitlePostpurchase.setText(postPurchasePresenter.getPurchase().getTitle());
-        edtPricePostpurchase.setText(String.valueOf(postPurchasePresenter.getPurchase().getPrice()));
-        edtAcreagePostpurchase.setText(String.valueOf(postPurchasePresenter.getPurchase().getAcreage()));
-        edtPhonePostpurchase.setText(String.valueOf(postPurchasePresenter.getPurchase().getPhone()));
-        edtAddressPostpurchase.setText(postPurchasePresenter.getPurchase().getAddress());
-        if (postPurchasePresenter.getPurchase().getDescription() != null) {
-            edtDecriptionPostpurchase.setText(postPurchasePresenter.getPurchase().getDescription());
+    private void showDetail(Purchase purchase) {
+        edtTitlePostpurchase.setText(purchase.getTitle());
+        edtPricePostpurchase.setText(String.valueOf(purchase.getPrice()));
+        edtAcreagePostpurchase.setText(String.valueOf(purchase.getAcreage()));
+        edtPhonePostpurchase.setText(String.valueOf(purchase.getPhone()));
+        edtAddressPostpurchase.setText(purchase.getAddress());
+        if (purchase.getDescription() != null) {
+            edtDecriptionPostpurchase.setText(purchase.getDescription());
         }
     }
 
-    private void postPurchase(List<File> imageList) {
-        PurchaseRequest purchaseRequest = new PurchaseRequest(edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
-                Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
-                edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString(), imageList);
-        postPurchasePresenter.postPurchase(iApi, purchaseRequest);
-    }
-
-    private void updatePurchase() {
+    private void postPurchase(String token) {
         PurchaseRequest purchaseRequest = new PurchaseRequest(edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
                 Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
                 edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString());
-        postPurchasePresenter.updatePurchase(iApi, purchaseRequest, postPurchasePresenter.getId());
+        postPurchasePresenter.postPurchase(iApi, purchaseRequest, token);
     }
 
-    private String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        CursorLoader loader = new CursorLoader(getActivity(), contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        return result;
+    private void updatePurchase(int id, String token) {
+        PurchaseRequest purchaseRequest = new PurchaseRequest(edtTitlePostpurchase.getText().toString(), Float.parseFloat(edtPricePostpurchase.getText().toString()),
+                Float.parseFloat(edtAcreagePostpurchase.getText().toString()), edtPhonePostpurchase.getText().toString(),
+                edtAddressPostpurchase.getText().toString(), edtDecriptionPostpurchase.getText().toString());
+        postPurchasePresenter.updatePurchase(iApi, purchaseRequest, id, token);
     }
 }

@@ -23,7 +23,6 @@ public class MainPresenter {
     public void getFlag(Bundle bundle) {
         if (bundle != null) {
             flag = bundle.getInt(BaseStringKey.FLAG);
-            Log.d("FLAG", String.valueOf(flag));
             iViewMain.getFlagSuccess();
         } else {
             iViewMain.getFlagFailure();

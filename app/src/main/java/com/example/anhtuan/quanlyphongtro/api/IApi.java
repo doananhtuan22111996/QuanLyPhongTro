@@ -38,7 +38,7 @@ public interface IApi {
     @POST("purchase")
         //Dang tro
     Call<BaseResponse> postPurchase(@Header("Http-Auth-Token") String api_token,
-                                    @Body RequestBody requestBody);
+                                    @Body PurchaseRequest purchaseRequest);
 
     @PUT("purchase/{id}")
         //Update tro token

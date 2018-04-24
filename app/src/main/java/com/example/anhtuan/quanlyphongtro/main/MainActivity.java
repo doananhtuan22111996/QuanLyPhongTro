@@ -74,14 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             replaceFragmentContent(PostPurchaseFragment.newInstance());
             setColorFooder(0);
         }
-        Log.d("FLAG", "SUCCESS");
     }
 
     @Override
     public void getFlagFailure() {
         replaceFragmentContent(PurchaseFragment.newInstance());
         setColorFooder(1);
-        Log.d("FLAG", "FAILURE");
     }
 
     private void getFlag() {

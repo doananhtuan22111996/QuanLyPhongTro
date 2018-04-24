@@ -9,12 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
@@ -22,8 +22,10 @@ import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity;
+import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.purchase.adapter.PurchaseRecyclerViewAdaper;
 
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -61,60 +63,49 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
         rcvListPurchase.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL, false));
 
         getToken();
+
         return view;
     }
 
     @Override
-    public void onSuccess() {
+    public void callPurchaseSuccess(List<Purchase> purchaseList) {
         pbWaitpurchase.setVisibility(View.GONE);
-        showListPurchase();
-        Log.d("PURCHASE", "SUCCESS");
+        showListPurchase(purchaseList);
     }
 
     @Override
-    public void onFailure() {
-        Log.d("PURCHASE", "SUCCESS");
+    public void callPurchaseFailure() {
+        pbWaitpurchase.setVisibility(View.GONE);
+        Toast.makeText(getActivity(), "GET PURCHASE FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void getTokenSuccess() {
-        getPurchase();
-        Log.d("TOKEN", "SUCCESS");
+    public void callTokenSuccess(String token) {
+        getPurchaseList(token);
     }
 
     @Override
-    public void getTokenFailure() {
-        Log.d("TOKEN", "FAILURE");
-    }
-
-    @Override
-    public void getFlagSuccess() {
-
-    }
-
-    @Override
-    public void getFlagFailure() {
-
+    public void callTokenFailure() {
+        pbWaitpurchase.setVisibility(View.GONE);
+        Toast.makeText(getActivity(), "GET TOKEN FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     private void getToken() {
-        if (sharedPreferences != null) {
-            purchasePresenter.getTokenSharePreference(sharedPreferences);
-        }
+        purchasePresenter.getTokenSharePreference(sharedPreferences);
     }
 
-    private void getPurchase() {
-        purchasePresenter.getPurchase(iApi);
+    private void getPurchaseList(String api_token) {
+        purchasePresenter.getPurchase(iApi, api_token);
     }
 
-    private void showListPurchase() {
-        purchaseRecyclerViewAdaper = new PurchaseRecyclerViewAdaper(getActivity(), purchasePresenter.getPurchaseList());
+    private void showListPurchase(final List<Purchase> purchaseList) {
+        purchaseRecyclerViewAdaper = new PurchaseRecyclerViewAdaper(getActivity(), purchaseList);
         rcvListPurchase.setAdapter(purchaseRecyclerViewAdaper);
         purchaseRecyclerViewAdaper.setiOnClickItemPurchaseListener(new IContract.IOnClickItemPurchaseListener() {
             @Override
             public void onClickItemPurchase(int position) {
                 Intent intent = new Intent(getActivity(), DetailPurchaseActivity.class);
-                intent.putExtra(BaseStringKey.PURCHASE, purchasePresenter.getPurchaseList().get(position));
+                intent.putExtra(BaseStringKey.PURCHASE, purchaseList.get(position));
                 startActivity(intent);
             }
 
@@ -125,5 +116,6 @@ public class PurchaseFragment extends Fragment implements IContract.IViewPurchas
         });
         purchaseRecyclerViewAdaper.notifyDataSetChanged();
     }
+
 
 }

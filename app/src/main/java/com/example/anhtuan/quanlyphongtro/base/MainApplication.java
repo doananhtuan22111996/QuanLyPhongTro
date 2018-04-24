@@ -15,7 +15,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        if(retrofit == null) {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(IApi.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

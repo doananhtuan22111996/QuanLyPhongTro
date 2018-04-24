@@ -9,13 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
@@ -24,15 +24,17 @@ import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.DetailPurchaseActivity;
 import com.example.anhtuan.quanlyphongtro.login.LogInActivity;
+import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.personal.adapter.PersonalMyPurchaseRecyclerViewAdapter;
 
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
-public class PersonalMyPurchaseFragment extends Fragment implements IContract.IViewPurchase, View.OnClickListener {
+public class PersonalMyPurchaseFragment extends Fragment implements IContract.IViewPurchase.IViewPersonalMyPurchase, View.OnClickListener {
 
     @BindView(R.id.pb_waitmypurchase)
     ProgressBar pbWaitmypurchase;
@@ -44,6 +46,7 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
     SharedPreferences sharedPreferences;
     PersonalMyPurchasePresenter personalMyPurchasePresenter;
     IApi iApi;
+    String token;
 
     public static PersonalMyPurchaseFragment newInstance() {
         return new PersonalMyPurchaseFragment();
@@ -69,36 +72,38 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
     }
 
     @Override
-    public void onSuccess() {
+    public void callTokenSuccess(String token) {
+        this.token = token;
+        getMyPurchase(token);
+    }
+
+    @Override
+    public void callTokenFailure() {
         pbWaitmypurchase.setVisibility(View.GONE);
-        showMyPurchase();
-        Log.d("MYPURCHASE", "SUCCESS");
+        Toast.makeText(getActivity(), "GET TOKEN FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onFailure() {
-        Log.d("MYPURCHASE", "FAILURE");
+    public void callMyPurchaseSuccess(List<Purchase> purchasesList) {
+        pbWaitmypurchase.setVisibility(View.GONE);
+        showMyPurchase(purchasesList);
     }
 
     @Override
-    public void getTokenSuccess() {
-        getMyPurchase();
-        Log.d("TOKEN", "SUCCESS");
+    public void callMyPurchaseFailure() {
+        pbWaitmypurchase.setVisibility(View.GONE);
+        Toast.makeText(getActivity(), "GET PURCHASE FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void getTokenFailure() {
-        Log.d("TOKEN", "FAILURE");
+    public void onDeleteSuccess() {
+        getMyPurchase(token);
     }
 
     @Override
-    public void getFlagSuccess() {
-
-    }
-
-    @Override
-    public void getFlagFailure() {
-
+    public void ondDeleteFailure() {
+        pbWaitmypurchase.setVisibility(View.GONE);
+        Toast.makeText(getActivity(), "DELETE FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -113,34 +118,33 @@ public class PersonalMyPurchaseFragment extends Fragment implements IContract.IV
     }
 
     private void getToken() {
-        if (sharedPreferences != null) {
-            personalMyPurchasePresenter.getTokenSharePreference(sharedPreferences);
-        }
+        personalMyPurchasePresenter.getTokenSharePreference(sharedPreferences);
     }
 
-    private void getMyPurchase() {
-        personalMyPurchasePresenter.getMyPurchase(iApi);
+    private void getMyPurchase(String token) {
+        personalMyPurchasePresenter.getMyPurchase(iApi, token);
     }
 
-    private void showMyPurchase() {
-        final PersonalMyPurchaseRecyclerViewAdapter personalMyPurchaseRecyclerViewAdapter = new PersonalMyPurchaseRecyclerViewAdapter(getActivity(), personalMyPurchasePresenter.getPurchaseList());
+    private void showMyPurchase(final List<Purchase> purchaseList) {
+        final PersonalMyPurchaseRecyclerViewAdapter personalMyPurchaseRecyclerViewAdapter = new PersonalMyPurchaseRecyclerViewAdapter(getActivity(), purchaseList);
         rcvItemsPersonalmypurchase.setAdapter(personalMyPurchaseRecyclerViewAdapter);
         personalMyPurchaseRecyclerViewAdapter.setiOnClickItemPurchaseListener(new IContract.IOnClickItemPurchaseListener() {
             @Override
             public void onClickItemPurchase(int position) {
                 Intent intent = new Intent(getActivity(), DetailPurchaseActivity.class);
-                intent.putExtra(BaseStringKey.PURCHASE, personalMyPurchasePresenter.getPurchaseList().get(position));
+                intent.putExtra(BaseStringKey.PURCHASE, purchaseList.get(position));
                 startActivity(intent);
             }
 
             @Override
             public void onClickItemDeletePurchase(int postition) {
-                int id = personalMyPurchasePresenter.getPurchaseList().get(postition).getId();
-                personalMyPurchasePresenter.deleteMyPurchase(iApi, id);
-                personalMyPurchasePresenter.getPurchaseList().clear();
+                int id = purchaseList.get(postition).getId();
+                personalMyPurchasePresenter.deleteMyPurchase(iApi, id, token);
+                purchaseList.clear();
                 pbWaitmypurchase.setVisibility(View.VISIBLE);
             }
         });
         personalMyPurchaseRecyclerViewAdapter.notifyDataSetChanged();
     }
+
 }

@@ -1,133 +1,105 @@
 package com.example.anhtuan.quanlyphongtro.postpurchase;
 
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.anhtuan.quanlyphongtro.api.IApi;
-import com.example.anhtuan.quanlyphongtro.base.BaseResponse;
-import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.model.Purchase;
 import com.example.anhtuan.quanlyphongtro.model.request.PurchaseRequest;
 
-import java.io.File;
-import java.util.List;
+public class PostPurchasePresenter implements IContract.IPurchaseInteractor.IPostPurchaseInteractor {
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+    private IContract.IViewPurchase.IViewPostPurchase iViewPostPurchase;
+    private PostPurchaseInteractor postPurchaseInteractor;
 
-public class PostPurchasePresenter {
-
-    private IContract.IViewPurchase iViewPurchase;
-    private BaseResponse baseResponse;
-    private Purchase purchase;
-    private String api_token;
-    private int flag, id;
-
-    PostPurchasePresenter(IContract.IViewPurchase iViewPurchase) {
-        this.iViewPurchase = iViewPurchase;
-        this.baseResponse = new BaseResponse();
-        this.purchase = new Purchase();
-        this.flag = 0;
-        this.id = 0;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Purchase getPurchase() {
-        return purchase;
+    PostPurchasePresenter(IContract.IViewPurchase.IViewPostPurchase iViewPostPurchase) {
+        this.iViewPostPurchase = iViewPostPurchase;
+        postPurchaseInteractor = new PostPurchaseInteractor(this);
     }
 
     public void getTokenSharePreference(SharedPreferences sharedPreferences) {
-        if (!sharedPreferences.getString(BaseStringKey.USER_TOKEN, "").equals("")) {
-            api_token = sharedPreferences.getString(BaseStringKey.USER_TOKEN, "");
-            iViewPurchase.getTokenSuccess();
+        if (sharedPreferences != null) {
+            postPurchaseInteractor.getTokenSharePreference(sharedPreferences);
         } else {
-            iViewPurchase.getTokenFailure();
+            iViewPostPurchase.callTokenFailure();
         }
-
     }
 
-    public void postPurchase(IApi iApi, PurchaseRequest purchaseRequest) {
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.setType(MultipartBody.FORM);
-        builder.addFormDataPart("title", purchaseRequest.getTitle());
-        builder.addFormDataPart("price", String.valueOf(purchaseRequest.getPrice()));
-        builder.addFormDataPart("acreage", String.valueOf(purchaseRequest.getAcreage()));
-        builder.addFormDataPart("phone", purchaseRequest.getPhone());
-        builder.addFormDataPart("address", purchaseRequest.getAddress());
-        builder.addFormDataPart("description", purchaseRequest.getDescription());
-        for (File file : purchaseRequest.getImages()) {
-            builder.addFormDataPart("images[][image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+    public void postPurchase(IApi iApi, PurchaseRequest purchaseRequest, String token) {
+        if (purchaseRequest.getTitle().isEmpty() || String.valueOf(purchaseRequest.getAcreage()).isEmpty() ||
+                purchaseRequest.getAddress().isEmpty() || purchaseRequest.getPhone().isEmpty() ||
+                String.valueOf(purchaseRequest.getPrice()).isEmpty()) {
+            iViewPostPurchase.onPostFailure();
+        } else {
+            postPurchaseInteractor.postPurchase(iApi, purchaseRequest, token);
         }
-
-        Call<BaseResponse> call = iApi.postPurchase(api_token, builder.build());
-        call.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-                if (response.body() != null) {
-                    baseResponse = response.body();
-                    assert baseResponse != null;
-                    Log.d("STATUSsssssssssssssss", baseResponse.getStatus().toString());
-                    iViewPurchase.onSuccess();
-                } else {
-                    iViewPurchase.onFailure();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
-                iViewPurchase.onFailure();
-            }
-        });
     }
 
     public void getFlag(Bundle bundle) {
         if (bundle != null) {
-            flag = bundle.getInt(BaseStringKey.FLAG);
-            id = bundle.getInt(BaseStringKey.ID);
-            purchase = (Purchase) bundle.getSerializable(BaseStringKey.PURCHASE);
-            Log.d("FLAG_POST", flag + "/" + id);
-            bundle.remove(BaseStringKey.PURCHASE);
-            bundle.remove(BaseStringKey.ID);
-            bundle.remove(BaseStringKey.FLAG);
-            iViewPurchase.getFlagSuccess();
+            postPurchaseInteractor.getFlag(bundle);
         } else {
-            flag = 0;
-            iViewPurchase.getFlagFailure();
+            iViewPostPurchase.callFlagFailure();
         }
     }
 
-    public void updatePurchase(IApi iApi, PurchaseRequest purchaseRequest, int id) {
-        Call<BaseResponse> call = iApi.putPurchase(api_token, purchaseRequest, id);
-        call.enqueue(new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<BaseResponse> call, @NonNull Response<BaseResponse> response) {
-                if (response.body() != null) {
-                    iViewPurchase.onSuccess();
-                } else {
-                    iViewPurchase.onFailure();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<BaseResponse> call, @NonNull Throwable t) {
-                iViewPurchase.onFailure();
-            }
-        });
+    public void updatePurchase(IApi iApi, PurchaseRequest purchaseRequest, int id, String token) {
+        if (purchaseRequest.getTitle().isEmpty() || String.valueOf(purchaseRequest.getAcreage()).isEmpty() ||
+                purchaseRequest.getAddress().isEmpty() || purchaseRequest.getPhone().isEmpty() ||
+                String.valueOf(purchaseRequest.getPrice()).isEmpty()) {
+            iViewPostPurchase.onPostFailure();
+        } else {
+            postPurchaseInteractor.updatePurchase(iApi, purchaseRequest, id, token);
+        }
     }
 
+
+    @Override
+    public void getTokenSuccess(String token) {
+        if (token.isEmpty()) {
+            iViewPostPurchase.callTokenFailure();
+        } else {
+            iViewPostPurchase.callTokenSuccess(token);
+        }
+    }
+
+    @Override
+    public void getTokenFailure() {
+        iViewPostPurchase.callTokenFailure();
+    }
+
+    @Override
+    public void getFlagSuccess(Purchase purchase, int id, int flag) {
+        if (purchase == null || String.valueOf(id).isEmpty() || String.valueOf(flag).isEmpty()) {
+            iViewPostPurchase.callFlagFailure();
+        } else {
+            iViewPostPurchase.callFlagSuccess(purchase, id, flag);
+        }
+    }
+
+    @Override
+    public void getFlagFailure() {
+        iViewPostPurchase.callFlagFailure();
+    }
+
+    @Override
+    public void postSuccess() {
+        iViewPostPurchase.onPostSuccess();
+    }
+
+    @Override
+    public void postFailure() {
+        iViewPostPurchase.onPostFailure();
+    }
+
+    @Override
+    public void updateSuccess() {
+        iViewPostPurchase.onUpdateSuccess();
+    }
+
+    @Override
+    public void updateFailure() {
+        iViewPostPurchase.onUpdateFailure();
+    }
 }

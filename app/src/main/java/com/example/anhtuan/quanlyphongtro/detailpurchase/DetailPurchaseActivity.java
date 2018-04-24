@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,11 +16,12 @@ import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
 import com.example.anhtuan.quanlyphongtro.detailpurchase.adapter.DetailPurchaseViewPagerAdapter;
 import com.example.anhtuan.quanlyphongtro.main.MainActivity;
+import com.example.anhtuan.quanlyphongtro.model.Purchase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailPurchaseActivity extends AppCompatActivity implements IContract.IViewPurchase, View.OnClickListener {
+public class DetailPurchaseActivity extends AppCompatActivity implements IContract.IViewPurchase.IViewDetailPurchase, View.OnClickListener {
 
     @BindView(R.id.img_back_detailpurchase)
     ImageView imgBackDetailpurchase;
@@ -46,7 +46,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     SharedPreferences sharedPreferences;
     DetailPurchasePresenter detailPurchasePresenter;
     Bundle bundle;
-
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,80 +62,67 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         vpImageFragdetailpurchase.setAdapter(detailPurchaseViewPagerAdapter);
 
         imgBackDetailpurchase.setOnClickListener(this);
-        imgEditDetailpurchase.setOnClickListener(this);
 
         getToken();
     }
 
     @Override
-    public void onSuccess() {
-        showDetailPurchase();
-        Log.d("PURCHASE", "SUCCESS");
-    }
-
-    @Override
-    public void onFailure() {
-        Toast.makeText(this, "FAILURE", Toast.LENGTH_SHORT).show();
-        Log.d("PURCHASE", "FAILURE");
-    }
-
-    @Override
-    public void getTokenSuccess() {
-        getPurchase();
-        if (detailPurchasePresenter.getId() == detailPurchasePresenter.getPurchase().getUser().getId()) {
+    public void callPurchaseSuccess(final Purchase purchase) {
+        if (this.id == purchase.getUser().getId()) {
             imgEditDetailpurchase.setVisibility(View.VISIBLE);
         } else {
             imgEditDetailpurchase.setVisibility(View.GONE);
         }
-        Log.d("TOKEN", "SUCCESS");
+        showDetailPurchase(purchase);
+        imgEditDetailpurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPurchaseActivity.this, MainActivity.class);
+                intent.putExtra(BaseStringKey.ID, purchase.getId());
+                intent.putExtra(BaseStringKey.FLAG, 1);
+                intent.putExtra(BaseStringKey.PURCHASE, purchase);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
-    public void getTokenFailure() {
-        Log.d("TOKEN", "FAILURE");
+    public void callPurchaseFailure() {
+        Toast.makeText(this, "GET PURCHASE FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void getFlagSuccess() {
-
+    public void callIdSuccess(int id) {
+        this.id = id;
+        getPurchase();
     }
 
     @Override
-    public void getFlagFailure() {
-
+    public void callIdFailure() {
+        Toast.makeText(this, "GET ID FAILURE", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
         if (v == imgBackDetailpurchase) {
             onBackPressed();
-        } else if (v == imgEditDetailpurchase) {
-            Intent intent = new Intent(DetailPurchaseActivity.this, MainActivity.class);
-            intent.putExtra(BaseStringKey.ID, detailPurchasePresenter.getPurchase().getId());
-            intent.putExtra(BaseStringKey.FLAG, 1);
-            intent.putExtra(BaseStringKey.PURCHASE, detailPurchasePresenter.getPurchase());
-            Log.d("FLAG_", String.valueOf(detailPurchasePresenter.getPurchase().getId()));
-            startActivity(intent);
         }
     }
 
     private void getToken() {
-        if (sharedPreferences != null) {
-            detailPurchasePresenter.getIdSharePreference(sharedPreferences);
-        }
+        detailPurchasePresenter.getIdSharePreference(sharedPreferences);
     }
 
     private void getPurchase() {
         detailPurchasePresenter.getPurchaseBundel(bundle);
     }
 
-    private void showDetailPurchase() {
-        tvTitleDetailpurchase.setText(detailPurchasePresenter.getPurchase().getTitle());
-        tvPriceDetailpurchase.setText(String.valueOf(detailPurchasePresenter.getPurchase().getPrice()));
-        tvAcreageDetailpurchase.setText(String.valueOf(detailPurchasePresenter.getPurchase().getAddress()));
-        tvAddressDetailpurchase.setText(detailPurchasePresenter.getPurchase().getAddress());
-        tvPhoneDetailpuchase.setText(detailPurchasePresenter.getPurchase().getPhone());
-        tvDecriptionDetailpurchase.setText(detailPurchasePresenter.getPurchase().getDescription());
+    private void showDetailPurchase(Purchase purchase) {
+        tvTitleDetailpurchase.setText(purchase.getTitle());
+        tvPriceDetailpurchase.setText(String.valueOf(purchase.getPrice()));
+        tvAcreageDetailpurchase.setText(String.valueOf(purchase.getAddress()));
+        tvAddressDetailpurchase.setText(purchase.getAddress());
+        tvPhoneDetailpuchase.setText(purchase.getPhone());
+        tvDecriptionDetailpurchase.setText(purchase.getDescription());
     }
-
 }
