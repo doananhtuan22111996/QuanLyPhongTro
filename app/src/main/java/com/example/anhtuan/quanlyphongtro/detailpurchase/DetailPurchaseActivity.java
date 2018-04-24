@@ -63,7 +63,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
 
         imgBackDetailpurchase.setOnClickListener(this);
 
-        getToken();
+        getId();
     }
 
     @Override
@@ -109,7 +109,7 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         }
     }
 
-    private void getToken() {
+    private void getId() {
         detailPurchasePresenter.getIdSharePreference(sharedPreferences);
     }
 

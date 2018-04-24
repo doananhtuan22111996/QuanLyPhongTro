@@ -18,6 +18,7 @@ public class DetailPurchaseInteractor {
     DetailPurchaseInteractor(IContract.IPurchaseInteractor.IDetailPurchaseInteractor iDetailPurchaseInteractor) {
         this.iDetailPurchaseInteractor = iDetailPurchaseInteractor;
         purchase = new Purchase();
+        id = -1;
     }
 
     public void getIdSharePreference(SharedPreferences sharedPreferences) {
