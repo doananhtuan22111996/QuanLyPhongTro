@@ -163,54 +163,6 @@
                 android:layout_height="30dp"
                 android:contentDescription="@null"
                 android:scaleType="fitXY"
-                android:src="@drawable/icons8_user_96" />
-
-            <TextView
-                android:id="@+id/tv_name_detailpuchase"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:hint="Name"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="@null"
-                android:scaleType="fitXY"
-                android:src="@drawable/icons8_user_96" />
-
-            <TextView
-                android:id="@+id/tv_email_detailpuchase"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:hint="Email"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="@null"
-                android:scaleType="fitXY"
                 android:src="@drawable/download" />
 
             <TextView

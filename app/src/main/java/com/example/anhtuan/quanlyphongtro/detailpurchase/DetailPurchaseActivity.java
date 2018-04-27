@@ -48,10 +48,6 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     TextView tvDecriptionDetailpurchase;
     @BindView(R.id.img_edit_detailpurchase)
     ImageView imgEditDetailpurchase;
-    @BindView(R.id.tv_name_detailpuchase)
-    TextView tvNameDetailpuchase;
-    @BindView(R.id.tv_email_detailpuchase)
-    TextView tvEmailDetailpuchase;
 
     DetailPurchaseViewPagerAdapter detailPurchaseViewPagerAdapter;
     SharedPreferences sharedPreferences;
@@ -136,8 +132,6 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         tvAddressDetailpurchase.setText(purchase.getAddress());
         tvPhoneDetailpuchase.setText(purchase.getPhone());
         tvDecriptionDetailpurchase.setText(purchase.getDescription());
-        tvNameDetailpuchase.setText(purchase.getUser().getUsername());
-        tvEmailDetailpuchase.setText(purchase.getUser().getEmail());
         tvPhoneDetailpuchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
