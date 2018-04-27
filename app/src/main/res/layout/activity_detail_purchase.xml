@@ -29,8 +29,8 @@
             android:layout_weight="8"
             android:ellipsize="end"
             android:gravity="center"
-            android:text="@string/thongtinchitiet"
             android:maxLines="1"
+            android:text="@string/thongtinchitiet"
             android:textColor="@color/cardview_light_background"
             android:textSize="30sp" />
 
@@ -61,11 +61,11 @@
             android:id="@+id/tv_title_detailpurchase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/chothuenhanguyencan"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/title"
             android:textAlignment="center"
             android:textSize="17sp"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -94,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:hint="Money"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -118,6 +119,7 @@
                     android:id="@+id/tv_acreage_detailpurchase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Acreage"
                     android:layout_marginStart="10dp"
                     android:textSize="15sp" />
 
@@ -144,6 +146,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:hint="Address"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/icons8_user_96" />
+
+            <TextView
+                android:id="@+id/tv_name_detailpuchase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="Name"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/icons8_user_96" />
+
+            <TextView
+                android:id="@+id/tv_email_detailpuchase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="Email"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -167,6 +218,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:hint="Phone"
+                android:textStyle="italic"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15sp" />
 
         </LinearLayout>

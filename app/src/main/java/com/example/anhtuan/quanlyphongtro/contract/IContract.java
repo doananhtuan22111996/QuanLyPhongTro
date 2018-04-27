@@ -15,7 +15,7 @@ public interface IContract {
     interface IViewLogin {
         void onSuccess();
 
-        void onFailure();
+        void onFailure(String notifi);
     }
 
     interface ILoginInteractor {

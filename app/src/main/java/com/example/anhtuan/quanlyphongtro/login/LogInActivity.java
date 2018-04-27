@@ -66,9 +66,9 @@ public class LogInActivity extends AppCompatActivity implements IContract.IViewL
     }
 
     @Override
-    public void onFailure() {
+    public void onFailure(String notifi) {
         pbWaitlogin.setVisibility(View.GONE);
-        Toast.makeText(this, "LOGIN FAILURE", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, notifi, Toast.LENGTH_SHORT).show();
     }
 
     @Override

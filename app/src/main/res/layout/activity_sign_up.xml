@@ -4,27 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_backgroud"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.example.anhtuan.quanlyphongtro.login.LogInActivity">
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top">
+        android:layout_gravity="left|top"
+        tools:ignore="RtlHardcoded">
 
         <ImageButton
             android:id="@+id/imgb_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_keyboard_backspace_white_24dp" />
+            android:background="@drawable/ic_keyboard_backspace_white_24dp"
+            android:contentDescription="@null" />
 
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <LinearLayout
@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:hint="@string/email"
+                    android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -117,7 +118,6 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
         <Button
@@ -136,7 +136,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminateTint="@android:color/white"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:targetApi="lollipop" />
 
     </LinearLayout>
 

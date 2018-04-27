@@ -14,11 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.anhtuan.quanlyphongtro.R;
-import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
-import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 import com.example.anhtuan.quanlyphongtro.api.IApi;
+import com.example.anhtuan.quanlyphongtro.base.BaseStringKey;
 import com.example.anhtuan.quanlyphongtro.base.MainApplication;
 import com.example.anhtuan.quanlyphongtro.contract.IContract;
+import com.example.anhtuan.quanlyphongtro.main.MainActivity;
 import com.example.anhtuan.quanlyphongtro.model.request.AuthRequest;
 
 import butterknife.BindView;
@@ -37,12 +37,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText edtConfirmationPassword;
     @BindView(R.id.btn_dangki)
     Button btnDangki;
+    @BindView(R.id.pb_waitsignup)
+    ProgressBar pbWaitsignup;
 
     SharedPreferences sharedPreferences;
     LoginPresenter loginPresenter;
     IApi iApi;
-    @BindView(R.id.pb_waitsignup)
-    ProgressBar pbWaitsignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +81,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onFailure() {
+    public void onFailure(String notifi) {
         pbWaitsignup.setVisibility(View.GONE);
-        Toast.makeText(this, "SIGN UP FAILUE", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, notifi, Toast.LENGTH_SHORT).show();
         Log.d("SIGNUP", "FAILURE");
     }
 }

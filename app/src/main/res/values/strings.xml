@@ -2,7 +2,7 @@
     <string name="app_name">QuanLyPhongTro</string>
     <string name="title_DangNhap">Đăng Nhập</string>
     <string name="textview">TextView</string>
-    <string name="email">Email/Số điện thoại</string>
+    <string name="email">Email</string>
     <string name="matkhau">Mật khẩu</string>
     <string name="dangnhap">Đăng nhập</string>
     <string name="quenmatkhau">Quên mật khẩu?</string>
@@ -19,7 +19,6 @@
     <string name="dientich">Diện tích:</string>
     <string name="dienthoai">Điện thoại:</string>
     <string name="diachi">Địa chỉ:</string>
-    <string name="chothuenhanguyencan">Cho thuê nhà nguyên căn</string>
     <string name="phong_tro_online">Phòng Trọ Online</string>
     <string name="dangki">Đăng kí</string>
     <string name="nhaplaimatkhau">Nhập lại mật khẩu</string>
@@ -31,4 +30,7 @@
     <string name="title_purchase">Title Purchase</string>
     <string name="luu">Lưu</string>
     <string name="thongtinchitiet">Thông tin chi tiết</string>
+    <string name="numberphone">Số điện thoại</string>
+    <string name="name">Họ và tên</string>
+    <string name="title">Title Purchase</string>
 </resources>

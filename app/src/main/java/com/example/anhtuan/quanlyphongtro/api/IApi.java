@@ -47,4 +47,9 @@ public interface IApi {
     @DELETE("purchase/{id}")
         //Delete purchase
     Call<BaseResponse> deletePurchase(@Header("Http-Auth-Token") String api_token, @Path("id") int id);
+
+    @PUT("/api/v1/user")
+        //Update info user
+    Call<BaseResponse> updateInfoUser(@Header("Http-Auth-Token") String api_token, @Path("username") String username,
+                                      @Path("phone") String phone);
 }

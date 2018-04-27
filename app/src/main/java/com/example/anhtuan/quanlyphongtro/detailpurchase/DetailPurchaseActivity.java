@@ -1,11 +1,18 @@
 package com.example.anhtuan.quanlyphongtro.detailpurchase;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,11 +48,16 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
     TextView tvDecriptionDetailpurchase;
     @BindView(R.id.img_edit_detailpurchase)
     ImageView imgEditDetailpurchase;
+    @BindView(R.id.tv_name_detailpuchase)
+    TextView tvNameDetailpuchase;
+    @BindView(R.id.tv_email_detailpuchase)
+    TextView tvEmailDetailpuchase;
 
     DetailPurchaseViewPagerAdapter detailPurchaseViewPagerAdapter;
     SharedPreferences sharedPreferences;
     DetailPurchasePresenter detailPurchasePresenter;
     Bundle bundle;
+
     private int id;
 
     @Override
@@ -117,12 +129,40 @@ public class DetailPurchaseActivity extends AppCompatActivity implements IContra
         detailPurchasePresenter.getPurchaseBundel(bundle);
     }
 
-    private void showDetailPurchase(Purchase purchase) {
+    private void showDetailPurchase(final Purchase purchase) {
         tvTitleDetailpurchase.setText(purchase.getTitle());
         tvPriceDetailpurchase.setText(String.valueOf(purchase.getPrice()));
         tvAcreageDetailpurchase.setText(String.valueOf(purchase.getAddress()));
         tvAddressDetailpurchase.setText(purchase.getAddress());
         tvPhoneDetailpuchase.setText(purchase.getPhone());
         tvDecriptionDetailpurchase.setText(purchase.getDescription());
+        tvNameDetailpuchase.setText(purchase.getUser().getUsername());
+        tvEmailDetailpuchase.setText(purchase.getUser().getEmail());
+        tvPhoneDetailpuchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isPermissionGranted(purchase);
+            }
+        });
+    }
+
+    public void isPermissionGranted(Purchase purchase) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.CALL_PHONE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                call_action(purchase);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+            }
+        } else {
+            call_action(purchase);
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void call_action(Purchase purchase) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + purchase.getPhone()));
+        startActivity(callIntent);
     }
 }
