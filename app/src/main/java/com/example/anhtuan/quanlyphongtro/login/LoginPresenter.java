@@ -19,6 +19,8 @@ public class LoginPresenter implements IContract.ILoginInteractor {
     public void getTokenSignIn(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
         if ((authRequest.getEmail().isEmpty() || authRequest.getPassword().isEmpty())) {
             iView.onFailure("Email or Password are empty");
+        } else if (!authRequest.getEmail().contains("@gmail.com")) {
+            iView.onFailure("Error email");
         } else {
             loginInteractor.checkLoginSignIn(iApi, authRequest, sharedPreferences);
         }
@@ -27,6 +29,8 @@ public class LoginPresenter implements IContract.ILoginInteractor {
     public void getTokenSignUp(IApi iApi, AuthRequest authRequest, final SharedPreferences sharedPreferences) {
         if (authRequest.getEmail().isEmpty() || authRequest.getPassword().isEmpty() || authRequest.getPassword_confirmation().isEmpty()) {
             iView.onFailure("Info is empty");
+        } else if (!authRequest.getEmail().contains("@gmail.com")) {
+            iView.onFailure("Error email");
         } else if (authRequest.getPassword().length() < 6 || authRequest.getPassword_confirmation().length() < 6) {
             iView.onFailure("Password is more 6 char");
         } else {
