@@ -87,6 +87,7 @@ public class PostPurchaseFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.fragment_post_purchase, container, false);
         ButterKnife.bind(this, view);
 
+
         Retrofit retrofit = MainApplication.getRetrofit();
         iApi = retrofit.create(IApi.class);
         sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences(BaseStringKey.USER_FILE, Context.MODE_PRIVATE);
