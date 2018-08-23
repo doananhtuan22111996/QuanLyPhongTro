@@ -18,13 +18,25 @@ platform :android do
 
   desc "Deploy a new version to the Diawai"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
-    puts "APK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+   gradle(
+        task: "clean assemble",
+        print_command: true,
+        properties: {
+          "android.injected.signing.store.file" => "/Users/jason/Desktop/keystore",
+          "android.injected.signing.store.password" => "123123",
+          "android.injected.signing.key.alias" => "123123",
+          "android.injected.signing.key.password" => "123123",
+        }
+      )
+      puts "APK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
 
-    diawi(token: '5Jg8WUU3fYFO8qLvcEb43waeDqZ3vcvkPsqFRAiDtp', file: "/Users/jason/.jenkins/workspace/QuanLyPhongTro/app/build/outputs/apk/release/app-release-unsigned.apk")
+      APK_PATH = "./app/build/outputs/apk/local/debug/#{ENV["APP_NAME"]}"
+      diawi(
+        token: "ef09uCShuXV1bpvABrWm48SuBxvgcfeuKz0XSKZpQ0",
+        file: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+      )
 
-    diawiLink = "/Users/jason/.jenkins/workspace/QuanLyPhongTro/app/build/outputs/apk/release/app-release-unsigned.apk"
-
-    msg = "test"
+      diawiLink = lane_context[SharedValues::UPLOADED_FILE_LINK_TO_DIAWI]
+      msg = "Get new #{ENV["APP_NAME"]} #{android_get_version_name} from: #{diawiLink}"
   end
 end
