@@ -23,10 +23,10 @@ platform :android do
 
       APK_PATH = "/Users/jason/Desktop/build/fastlane"
         diawi(
-          file: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+          file: lane_context[SharedValues::APK_PATH]
         )
 
-        diawiLink = lane_context[SharedValues::APK_PATH]
+        diawiLink = lane_context[SharedValues::UPLOADED_FILE_LINK_TO_DIAWI]
         msg = "Get new #{ENV["APP_NAME"]} #{android_get_version_name} from: #{diawiLink}"
   end
 end
