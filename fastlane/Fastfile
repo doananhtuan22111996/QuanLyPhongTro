@@ -21,7 +21,8 @@ platform :android do
     gradle(task: "clean assembleRelease")
           APK_PATH = "/Users/jason/Desktop/build/fastlane"
 
-      puts "APK path is: #{Actions.lane_context[SharedValues::APK_PATH]}"
+      puts "APK_PATH"
+      puts "/Users/jason/Desktop/build/fastlane"
       api_token = "5Jg8WUU3fYFO8qLvcEb43waeDqZ3vcvkPsqFRAiDtp"
 
         diawi(
