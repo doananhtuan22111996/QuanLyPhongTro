@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (curPosition) {
             case 0:
                 tvPostPurchase.setTextColor(Color.parseColor("#f98900"));
-                imgPostPurchase.setImageResource(R.drawable.add_icon_new);
+//                imgPostPurchase.setImageResource(R.drawable.add_icon_new);
                 tvHomePurchase.setTextColor(Color.parseColor("#000000"));
                 imgHomePurchase.setImageResource(R.drawable.home_icon2);
                 tvUserPurchase.setTextColor(Color.parseColor("#000000"));
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvPostPurchase.setTextColor(Color.parseColor("#000000"));
                 imgPostPurchase.setImageResource(R.drawable.them_icon);
                 tvHomePurchase.setTextColor(Color.parseColor("#f98900"));
-                imgHomePurchase.setImageResource(R.drawable.home_icon2_new);
+//                imgHomePurchase.setImageResource(R.drawable.home_icon2_new);
                 tvUserPurchase.setTextColor(Color.parseColor("#000000"));
                 imgUserPurchase.setImageResource(R.drawable.user_male);
                 break;
@@ -138,13 +138,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvHomePurchase.setTextColor(Color.parseColor("#000000"));
                 imgHomePurchase.setImageResource(R.drawable.home_icon2);
                 tvUserPurchase.setTextColor(Color.parseColor("#f98900"));
-                imgUserPurchase.setImageResource(R.drawable.user_icon_new);
+//                imgUserPurchase.setImageResource(R.drawable.user_icon_new);
                 break;
             default:
                 tvPostPurchase.setTextColor(Color.parseColor("#ffffff"));
                 imgPostPurchase.setImageResource(R.drawable.them_icon);
                 tvHomePurchase.setTextColor(Color.parseColor("#f98900"));
-                imgHomePurchase.setImageResource(R.drawable.home_icon2_new);
+//                imgHomePurchase.setImageResource(R.drawable.home_icon2_new);
                 tvUserPurchase.setTextColor(Color.parseColor("#ffffff"));
                 imgUserPurchase.setImageResource(R.drawable.user_male);
         }
