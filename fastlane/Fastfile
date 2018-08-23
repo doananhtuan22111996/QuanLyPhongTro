@@ -22,8 +22,8 @@ platform :android do
     puts "APK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
 
     diawi(
-      token = "5Jg8WUU3fYFO8qLvcEb43waeDqZ3vcvkPsqFRAiDtp"
-      file= lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+      token: "5Jg8WUU3fYFO8qLvcEb43waeDqZ3vcvkPsqFRAiDtp"
+      file: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
     )
 
     diawiLink = lane_context[SharedValues::UPLOADED_FILE_LINK_TO_DIAWI]
