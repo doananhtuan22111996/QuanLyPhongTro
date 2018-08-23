@@ -19,10 +19,7 @@ platform :android do
   desc "Deploy a new version to the Diawai"
   lane :deploy do
     gradle(task: "clean assembleRelease")
-          APK_PATH = "/Users/jason/Desktop/build/fastlane"
-
-      puts "APK_PATH"
-      puts "/Users/jason/Desktop/build/fastlane"
+      puts "APK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
       api_token = "5Jg8WUU3fYFO8qLvcEb43waeDqZ3vcvkPsqFRAiDtp"
 
         diawi(
