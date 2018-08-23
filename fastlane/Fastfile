@@ -1,0 +1,33 @@
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "clean assembleRelease")
+    crashlytics
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Deploy a new version to the Diawai"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+      puts "APK path is: #{Actions.lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+      api_token = "5Jg8WUU3fYFO8qLvcEb43waeDqZ3vcvkPsqFRAiDtp"
+
+      APK_PATH = "/Users/jason/Desktop/build/fastlane"
+        diawi(
+          file: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+        )
+
+        diawiLink = lane_context[SharedValues::UPLOADED_FILE_LINK_TO_DIAWI]
+        msg = "Get new #{ENV["APP_NAME"]} #{android_get_version_name} from: #{diawiLink}"
+  end
+end
